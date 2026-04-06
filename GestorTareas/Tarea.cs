@@ -1,76 +1,52 @@
-﻿using System.Collections;
-using System.Text.RegularExpressions;
-
-namespace GestorTareas
+﻿namespace GestorTareas
 {
     internal class Tarea
     {
         public Guid Id { get; init; }
         public string Titulo { get; set; }
-        public enum PrioridadTarea
+        public string Descripcion { get; set; }
+        public enum Prioridad { Baja, Media, Alta }
+        public enum Estado { Pendiente, EnProgreso, Completada, Cancelada}
+        public Prioridad PrioridadTarea { get; set; }
+        public Estado EstadoTarea { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaLimite { get; set; }
+        public string MotivoCancelacion { get; set; }
+        public Tarea(string titulo, Prioridad prioridadTarea, DateTime fechaLimite, string descripcion = null)
         {
-            Baja,
-            Media,
-            Alta
-        }
-
-        public enum EstadoTarea
-        {
-            Pendiente,
-            EnProgreso,
-            Completada,
-            Cancelada
-        }
-
-        public DateTime FechaCreacion, FechaLimite { get; set; }
-
-        private string _motivoCancelacion;
-
-        public Tarea(string titulo, string descripcion = null, PrioridadTarea prioridadTarea, FechaLimite fechaLimite)
-        {
-            Guid Id = Guid.NewGuid;
+            Id = Guid.NewGuid();
 
             Titulo = string.IsNullOrWhiteSpace(titulo)
                 ? throw new ArgumentException("El título no puede estar vacío") : titulo;
 
-            FechaCreacion = DateTime.Now;
+            FechaCreacion = DateTime.Today;
 
             FechaLimite = (fechaLimite.Date < DateTime.Today)
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : fechaLimite;
 
-            EstadoTarea = EstadoTarea.Pendiente;
+            EstadoTarea = Estado.Pendiente;
 
             PrioridadTarea = prioridadTarea;
-        }
 
-        public void Iniciar()
-        {
-            EstadoTarea.EnProgreso;
+            Descripcion = descripcion;
         }
+        public void Iniciar() => EstadoTarea = Estado.EnProgreso;
 
-        public void Completar()
-        {
-            EstadoTarea.Completada;
-        }
+        public void Completar() => EstadoTarea = Estado.Completada;
 
         public void Cancelar(string motivo)
         {
-            EstadoTarea.Cancelada;
-            _motivoCancelacion = motivo;
+            EstadoTarea = Estado.Cancelada;
+            MotivoCancelacion = motivo;
         }
 
-        public bool EstaVencida()
-        {
-            return FechaLimite > DateTime.Today ? true : false;
-        }
+        public bool EstaVencida() => FechaLimite < DateTime.Today;
 
-        public DateTime CalcularDiasRestantes()
-        {
-            return FechaLimite - DateTime.Today;
-        }
+        public int CalcularTiempoRestante() => (FechaLimite - DateTime.Today).Days;
+
         public override string ToString()
         {
-            return $"Resumen - Título : {Titulo} - Estado: {EstadoTarea} Fecha Creación: {FechaCreacion} - Fecha Límite: {FechaLimite}  ";
+            return $"Resumen - Título : {Titulo} - Estado: {EstadoTarea} - Fecha Creación: {FechaCreacion} - Fecha Límite: {FechaLimite}";
         }
     }
 }
