@@ -47,7 +47,7 @@ namespace GestorTareas
 
         public override string ToString()
         {
-            return $"Resumen - Título : {Titulo} - Estado: {EstadoTarea} - Fecha Creación: {FechaCreacion} - Fecha Límite: {FechaLimite}";
+            return $"Resumen - Título : {Titulo} - Estado: {EstadoTarea} - Fecha Creación: {FechaCreacion.ToString("dd/MM/yyyy")} - Fecha Límite: {FechaLimite} - Descripción: {Descripcion}";
         }
     }
 }
