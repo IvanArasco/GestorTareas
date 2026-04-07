@@ -1,6 +1,8 @@
-﻿namespace GestorTareas
+﻿// identificar las diferencias de cada tarea porque esto es genérico, y si es recurrente fechas limite mas cortas etc...
+// Informe PDF - Excel
+namespace GestorTareas
 {
-    internal class Tarea
+    public abstract class Tarea 
     {
         public Guid Id { get; init; }
         public string Titulo { get; set; }
