@@ -11,10 +11,10 @@ namespace GestorTareas
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public enum Prioridad { Baja, Media, Alta, Urgente }
-        public enum Estado { Pendiente, EnProgreso, Completada, Cancelada }
         public Prioridad PrioridadTarea { get; set; }
-        public Estado EstadoTarea { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public enum Estado { Pendiente, EnProgreso, Completada, Cancelada }
+        public Estado EstadoTarea { get; set; } = Estado.Pendiente;
+        public DateTime FechaCreacion { get; set; } = DateTime.Today;
         public DateTime FechaLimite { get; set; }
         public string MotivoCancelacion { get; set; }
         public Tarea(string titulo, Prioridad prioridadTarea, DateTime fechaLimite, string descripcion = null)
@@ -24,12 +24,8 @@ namespace GestorTareas
             Titulo = string.IsNullOrWhiteSpace(titulo)
                 ? throw new ArgumentException("El título no puede estar vacío") : titulo;
 
-            FechaCreacion = DateTime.Today;
-
             FechaLimite = (fechaLimite.Date < DateTime.Today)
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : fechaLimite;
-
-            EstadoTarea = Estado.Pendiente;
 
             PrioridadTarea = prioridadTarea;
 

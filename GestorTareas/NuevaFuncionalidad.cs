@@ -6,8 +6,16 @@ namespace GestorTareas
 {
     internal class NuevaFuncionalidad : Tarea
     {
-        public NuevaFuncionalidad(string titulo, Prioridad prioridadTarea, DateTime fechaLimite, string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
+        public enum AreaAfectacion {Frontend, Backend, BaseDatos}
+        public AreaAfectacion Area { get; set; }
+        public NuevaFuncionalidad(
+            string titulo, 
+            Prioridad prioridadTarea, 
+            DateTime fechaLimite, 
+            AreaAfectacion areaAfectacion, 
+            string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
         {
+            Area = areaAfectacion;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace GestorTareas
 {
     internal class GestorTareas
     {
-        public void MostrarResumen(Enumerable<Tarea> tareas)
+        public void MostrarResumen(IEnumerable<Tarea> tareas)
         {
 
         }

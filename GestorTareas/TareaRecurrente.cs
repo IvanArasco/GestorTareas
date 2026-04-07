@@ -6,8 +6,24 @@ namespace GestorTareas
 {
     internal class TareaRecurrente : Tarea
     {
-        public TareaRecurrente(string titulo, Prioridad prioridadTarea, DateTime fechaLimite, string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
+
+        public enum TipoFrecuencia { Diaria, Semanal, Mensual}
+        public TipoFrecuencia Frecuencia { get; set; }
+        public DateTime UltimaEjecucion { get; set; }
+        public DateTime ProximaEjecucion { get; set; }
+
+        public TareaRecurrente(
+            string titulo, 
+            Prioridad prioridadTarea, 
+            DateTime fechaLimite,
+            TipoFrecuencia frecuencia,
+            DateTime ultimaEjecucion,
+            DateTime proximaEjecucion,
+            string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
         {
+            Frecuencia = frecuencia;
+            ProximaEjecucion = proximaEjecucion;
+            UltimaEjecucion = ultimaEjecucion;
         }
     }
 }
