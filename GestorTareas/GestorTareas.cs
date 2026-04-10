@@ -21,7 +21,7 @@ namespace GestorDeTareas
 
         public void Guardar(string ruta)
         {
-           
+
             try
             {
                 var json = JsonSerializer.Serialize(tareas, opciones);
@@ -35,8 +35,15 @@ namespace GestorDeTareas
         public void Cargar(string ruta)
         {
             if (!File.Exists(ruta)) return;
-            var json = File.ReadAllText(ruta);
-            tareas = JsonSerializer.Deserialize<List<TareaDto>>(json, opciones) ?? new();
+            try
+            {
+                var json = File.ReadAllText(ruta);
+                tareas = JsonSerializer.Deserialize<List<TareaDto>>(json, opciones) ?? new();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ocurrió la excepción: {ex.Message}");
+            }
         }
         public void ListarTareas()
         {
