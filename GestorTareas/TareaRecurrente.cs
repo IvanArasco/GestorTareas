@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestorTareas
+namespace GestorDeTareas
 {
     internal class TareaRecurrente : Tarea
     {
-
-        public enum TipoFrecuencia { Diaria, Semanal, Mensual}
+        public enum TipoFrecuencia { Diaria, Semanal, Mensual }
         public TipoFrecuencia Frecuencia { get; set; }
         public DateTime UltimaEjecucion { get; set; }
         public DateTime ProximaEjecucion { get; set; }
 
         public TareaRecurrente(
-            string titulo, 
-            Prioridad prioridadTarea, 
+            string titulo,
+            Prioridad prioridadTarea,
             DateTime fechaLimite,
             TipoFrecuencia frecuencia,
             DateTime ultimaEjecucion,

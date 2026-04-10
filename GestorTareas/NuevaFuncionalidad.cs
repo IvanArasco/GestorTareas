@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestorTareas
+namespace GestorDeTareas
 {
     internal class NuevaFuncionalidad : Tarea
     {
-        public enum AreaAfectacion {Frontend, Backend, BaseDatos}
-        public AreaAfectacion Area { get; set; }
+        public enum AreaDesarrollo {Frontend, Backend, BaseDatos}
+        public AreaDesarrollo Area { get; set; }
         public NuevaFuncionalidad(
-            string titulo, 
+            string titulo,
             Prioridad prioridadTarea, 
-            DateTime fechaLimite, 
-            AreaAfectacion areaAfectacion, 
+            DateTime fechaLimite,
+            AreaDesarrollo areaAfectacion, 
             string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
         {
             Area = areaAfectacion;

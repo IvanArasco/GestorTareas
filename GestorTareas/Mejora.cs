@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestorTareas
+namespace GestorDeTareas
 {
     internal class Mejora : Tarea
     {
-        public string FuncionalidadAfectada {  get; set; }
+        public string FuncionalidadAfectada { get; set; }
         public string BeneficioEsperado { get; set; }
         public Mejora(
             string titulo, 

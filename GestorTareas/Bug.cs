@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace GestorTareas
+namespace GestorDeTareas
 {
     internal class Bug : Tarea
     {
@@ -15,7 +15,7 @@ namespace GestorTareas
             DateTime fechaLimite,
             string comportamientoActual,
             string comportamientoEsperado = null,
-             string descripcion = null
+            string descripcion = null
             ) : base(
                 titulo,
                 prioridadTarea,
@@ -23,7 +23,7 @@ namespace GestorTareas
                 descripcion ?? $"Comportamiento actual: {comportamientoActual} | Comportamiento esperado: {comportamientoEsperado}")
         {
             ComportamientoEsperado = comportamientoEsperado;
-            ComportamientoActual= comportamientoActual;
+            ComportamientoActual = comportamientoActual;
         }
     }
 }

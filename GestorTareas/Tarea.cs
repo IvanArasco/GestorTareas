@@ -2,8 +2,20 @@
 Informe PDF - Excel
 Tipos de tareas que usaríamos en el gestor - y qué tendrán en específico cada una a nivel de métodos y propiedades.
 CalcularLimiteTiempo
+
+Aseguraos de que vuestra colección de tareas es un List<Tarea> con capacidad inicial estimada. -> Capacity : 30 tareas
+
+2. Implementad algún mecanismo de acceso rápido por identificador (Dictionary u otra estructura que justifiquéis).
+Los métodos que devuelvan colecciones deben exponer el tipo más restrictivo posible (IEnumerable<T>,
+IReadOnlyList<T>...).
+
+3. Añadid al menos un método de búsqueda que acepte un criterio externo como parámetro (Func<Tarea, bool> o
+equivalente).
+
+Meter en un README.md
+
 */
-namespace GestorTareas
+namespace GestorDeTareas
 {
     public abstract class Tarea
     {
