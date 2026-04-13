@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    internal class NuevaFuncionalidad : Tarea
+    public class NuevaFuncionalidad : Tarea
     {
         public enum AreaDesarrollo {Frontend, Backend, BaseDatos}
         public AreaDesarrollo Area { get; set; }

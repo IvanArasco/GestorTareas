@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    internal class Mejora : Tarea
+    public class Mejora : Tarea
     {
         public string FuncionalidadAfectada { get; set; }
         public string BeneficioEsperado { get; set; }

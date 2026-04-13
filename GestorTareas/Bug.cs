@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    internal class Bug : Tarea
+    public class Bug : Tarea
     {
         public string ComportamientoEsperado { get; set; }
         public string ComportamientoActual { get; set; }

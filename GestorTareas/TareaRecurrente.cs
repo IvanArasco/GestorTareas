@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    internal class TareaRecurrente : Tarea
+    public class TareaRecurrente : Tarea
     {
         public enum TipoFrecuencia { Diaria, Semanal, Mensual }
         public TipoFrecuencia Frecuencia { get; set; }
