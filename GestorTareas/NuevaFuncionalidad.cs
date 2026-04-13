@@ -12,10 +12,10 @@ namespace GestorDeTareas
             string titulo,
             Prioridad prioridadTarea, 
             DateTime fechaLimite,
-            AreaDesarrollo areaAfectacion, 
+            AreaDesarrollo area, 
             string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
         {
-            Area = areaAfectacion;
+            Area = area;
         }
     }
 }

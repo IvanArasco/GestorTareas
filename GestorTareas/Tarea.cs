@@ -40,7 +40,7 @@ namespace GestorDeTareas
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : fechaLimite;
 
             PrioridadTarea = prioridadTarea;
-
+             
             Descripcion = descripcion;
         }
         public void Iniciar() => EstadoTarea = Estado.EnProgreso;

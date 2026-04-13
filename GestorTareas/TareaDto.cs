@@ -11,7 +11,6 @@
         public DateTime FechaLimite { get; set; }
 
         public TareaDto() { }
-
         public TareaDto(string titulo, Prioridad prioridadTarea, DateTime fechaLimite)
         {
             Titulo = titulo;
