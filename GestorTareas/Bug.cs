@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-namespace GestorDeTareas
+﻿namespace GestorDeTareas
 {
     public class Bug : Tarea
     {

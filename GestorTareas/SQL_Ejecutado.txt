@@ -1,0 +1,58 @@
+	use GestorTareas;
+
+	DROP TABLE IF EXISTS TareasRecurrentes, Bugs, NuevasFuncionalidades, Mejoras;
+	DROP TABLE IF EXISTS Tareas;
+	DROP TABLE IF EXISTS Usuarios;
+	GO
+
+	CREATE TABLE Usuarios (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Nombre NVARCHAR(100) NOT NULL,
+	Email NVARCHAR(200) NOT NULL,
+	EsAdmin BIT NOT NULL DEFAULT 0,
+	CONSTRAINT UQ_Usuarios_Email UNIQUE (Email)
+	);
+
+	CREATE TABLE Tareas (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Titulo NVARCHAR(200) NOT NULL,
+	Descripcion NVARCHAR(500) NULL,
+	Prioridad INT NOT NULL,
+	Estado INT NOT NULL,
+	FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
+	FechaLimite DATETIME2 NOT NULL,
+	MotivoCancelacion NVARCHAR(500) NULL,
+	UsuarioId INT NOT NULL,
+	CONSTRAINT FK_Tareas_Usuarios FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
+	);
+
+	CREATE TABLE TareasRecurrentes (
+	Id INT PRIMARY KEY,
+	Frecuencia INT NOT NULL,
+	ProximaEjecucion DATETIME2 NOT NULL,
+	UltimaEjecucion DATETIME2 NULL,
+	CONSTRAINT FK_Recurrentes_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+	);
+
+	CREATE TABLE Bugs (
+	Id INT PRIMARY KEY,
+	ComportamientoEsperado NVARCHAR(500) NOT NULL,
+	ComportamientoActual NVARCHAR(500) NOT NULL,
+	CONSTRAINT FK_Bugs_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+	);
+
+
+	CREATE TABLE NuevasFuncionalidades (
+	Id INT PRIMARY KEY,
+	AreaDesarrollo INT NULL,
+	CONSTRAINT FK_NuevasFuncionalidades_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+	);
+
+	CREATE TABLE Mejoras (
+	Id INT PRIMARY KEY,
+	FuncionalidadAfectada NVARCHAR(500) NOT NULL,
+	BeneficioEsperado NVARCHAR(500) NOT NULL,
+	CONSTRAINT FK_Mejoras_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+	);
+
+	GO

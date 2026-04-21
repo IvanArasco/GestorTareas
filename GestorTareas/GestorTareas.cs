@@ -7,7 +7,7 @@ namespace GestorDeTareas
     {
         // lista por defecto de tareas que van a componer el JSON inicial y también utilizadas para pruebas
         private List<TareaDto> tareasDto = [
-            new TareaDto("Tarea 001", TareaDto.Prioridad.Alta,DateTime.Today.AddDays(5)),
+            new TareaDto("Tarea 001", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5)),
             new TareaDto("Tarea 002", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5)),
             new TareaDto("Tarea 003", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5))
         ];
