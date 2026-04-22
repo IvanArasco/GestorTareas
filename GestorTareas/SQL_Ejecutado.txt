@@ -1,67 +1,69 @@
-	CREACIÓN DE BASE DE DATOS Y TABLAS:
+CREACIÓN DE BASE DE DATOS Y TABLAS:
 	
-	use GestorTareas;
+use GestorTareas;
 
-	DROP TABLE IF EXISTS TareasRecurrentes, Bugs, NuevasFuncionalidades, Mejoras;
-	DROP TABLE IF EXISTS Tareas;
-	DROP TABLE IF EXISTS Usuarios;
-	GO
+DROP TABLE IF EXISTS TareasRecurrentes, Bugs, NuevasFuncionalidades, Mejoras;
+DROP TABLE IF EXISTS Tareas;
+DROP TABLE IF EXISTS Usuarios;
+GO
 
-	CREATE TABLE Usuarios (
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Nombre NVARCHAR(100) NOT NULL,
-	Email NVARCHAR(200) NOT NULL,
-	EsAdmin BIT NOT NULL DEFAULT 0,
-	CONSTRAINT UQ_Usuarios_Email UNIQUE (Email)
-	);
+CREATE TABLE Usuarios (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Nombre NVARCHAR(100) NOT NULL,
+Email NVARCHAR(200) NOT NULL,
+EsAdmin BIT NOT NULL DEFAULT 0,
+CONSTRAINT UQ_Usuarios_Email UNIQUE (Email)
+);
 
-	CREATE TABLE Tareas (
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Titulo NVARCHAR(200) NOT NULL,
-	Descripcion NVARCHAR(500) NULL,
-	Prioridad INT NOT NULL,
-	Estado INT NOT NULL,
-	FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
-	FechaLimite DATETIME2 NOT NULL,
-	MotivoCancelacion NVARCHAR(500) NULL,
-	UsuarioId INT NOT NULL,
-	CONSTRAINT FK_Tareas_Usuarios FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
-	);
+CREATE TABLE Tareas (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Titulo NVARCHAR(200) NOT NULL,
+Descripcion NVARCHAR(500) NULL,
+Prioridad INT NOT NULL,
+Estado INT NOT NULL,
+FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
+FechaLimite DATETIME2 NOT NULL,
+MotivoCancelacion NVARCHAR(500) NULL,
+UsuarioId INT NOT NULL,
+CONSTRAINT FK_Tareas_Usuarios FOREIGN KEY (UsuarioId) REFERENCES Usuarios(Id)
+);
 
-	CREATE TABLE TareasRecurrentes (
-	Id INT PRIMARY KEY,
-	Frecuencia INT NOT NULL,
-	ProximaEjecucion DATETIME2 NOT NULL,
-	UltimaEjecucion DATETIME2 NULL,
-	CONSTRAINT FK_Recurrentes_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
-	);
+CREATE TABLE TareasRecurrentes (
+Id INT PRIMARY KEY,
+Frecuencia INT NOT NULL,
+ProximaEjecucion DATETIME2 NOT NULL,
+UltimaEjecucion DATETIME2 NULL,
+CONSTRAINT FK_Recurrentes_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+);
 
-	CREATE TABLE Bugs (
-	Id INT PRIMARY KEY,
-	ComportamientoEsperado NVARCHAR(500) NOT NULL,
-	ComportamientoActual NVARCHAR(500) NOT NULL,
-	CONSTRAINT FK_Bugs_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
-	);
+CREATE TABLE Bugs (
+Id INT PRIMARY KEY,
+ComportamientoEsperado NVARCHAR(500) NOT NULL,
+ComportamientoActual NVARCHAR(500) NOT NULL,
+CONSTRAINT FK_Bugs_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+);
 
 
-	CREATE TABLE NuevasFuncionalidades (
-	Id INT PRIMARY KEY,
-	AreaDesarrollo INT NULL,
-	CONSTRAINT FK_NuevasFuncionalidades_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
-	);
+CREATE TABLE NuevasFuncionalidades (
+Id INT PRIMARY KEY,
+AreaDesarrollo INT NULL,
+CONSTRAINT FK_NuevasFuncionalidades_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+);
 
-	CREATE TABLE Mejoras (
-	Id INT PRIMARY KEY,
-	FuncionalidadAfectada NVARCHAR(500) NOT NULL,
-	BeneficioEsperado NVARCHAR(500) NOT NULL,
-	CONSTRAINT FK_Mejoras_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
-	);
+CREATE TABLE Mejoras (
+Id INT PRIMARY KEY,
+FuncionalidadAfectada NVARCHAR(500) NOT NULL,
+BeneficioEsperado NVARCHAR(500) NOT NULL,
+CONSTRAINT FK_Mejoras_Tareas FOREIGN KEY (Id) REFERENCES Tareas(Id) ON DELETE CASCADE
+);
 
-	GO
+GO
 
-	INSERTS:
+------------
+INSERTS:
+------------
 
-	use GestorTareas;
+use GestorTareas;
 
 -- Insertar un Usuario admin
 INSERT INTO Usuarios (Nombre, Email, EsAdmin)
@@ -86,3 +88,11 @@ VALUES ('TareaRecurrente001', 2, 3, '2026-07-20', 2);
 -- Insertar la Tarea Recurrente asociado a la Tarea recién creada
 INSERT INTO TareasRecurrentes (Id, Frecuencia, ProximaEjecucion)
 VALUES (SCOPE_IDENTITY(), 2, '2026-06-26');
+
+-- Insertar Tarea 3 para usuario 1
+INSERT INTO Tareas (Titulo, Prioridad, Estado, FechaLimite, UsuarioId)
+VALUES ('TareaMejora001', 1, 2, '2026-06-24', 1);
+
+-- Insertar la Tarea Mejora asociado a la Tarea recién creada
+INSERT INTO Mejoras (Id, FuncionalidadAfectada, BeneficioEsperado)
+VALUES (SCOPE_IDENTITY(), 'Login', 'Agregar botón de recordar nombre de usuario');
