@@ -1,5 +1,7 @@
+----------
 CREACIÓN DE BASE DE DATOS Y TABLAS:
-	
+----------
+
 use GestorTareas;
 
 DROP TABLE IF EXISTS TareasRecurrentes, Bugs, NuevasFuncionalidades, Mejoras;
