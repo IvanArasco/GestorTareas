@@ -49,7 +49,7 @@ namespace GestorDeTareas
             EstadoTarea = Estado.Cancelada;
             MotivoCancelacion = motivo;
         }
-        public bool EstaVencida() => FechaLimite < DateTime.Today;
+        public virtual bool EstaVencida() => FechaLimite < DateTime.Today;
 
         public int CalcularTiempoRestante() => (FechaLimite - DateTime.Today).Days;
 

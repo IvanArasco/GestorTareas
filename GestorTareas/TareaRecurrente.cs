@@ -21,8 +21,17 @@ namespace GestorDeTareas
             string descripcion = null) : base(titulo, prioridadTarea, fechaLimite, descripcion)
         {
             Frecuencia = frecuencia;
-            ProximaEjecucion = proximaEjecucion;
             UltimaEjecucion = ultimaEjecucion;
+
+            ProximaEjecucion = ValidarFechaProximaEjecucion(proximaEjecucion)
+                ? proximaEjecucion : throw new ArgumentException();
+            
         }
+
+        public override bool EstaVencida() => DateTime.Today > FechaLimite;
+
+        public bool ValidarFechaProximaEjecucion(DateTime proximaEjecucion) => proximaEjecucion > UltimaEjecucion && FechaLimite > proximaEjecucion;
+
+        //public void ValidarFechaUltimaEjecucion()
     }
 }

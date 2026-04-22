@@ -1,3 +1,5 @@
+	CREACIÓN DE BASE DE DATOS Y TABLAS:
+	
 	use GestorTareas;
 
 	DROP TABLE IF EXISTS TareasRecurrentes, Bugs, NuevasFuncionalidades, Mejoras;
@@ -56,3 +58,31 @@
 	);
 
 	GO
+
+	INSERTS:
+
+	use GestorTareas;
+
+-- Insertar un Usuario admin
+INSERT INTO Usuarios (Nombre, Email, EsAdmin)
+VALUES ('Ivan Arasco', 'arascoivan@gestortareas.com', 1);
+
+-- Insertar un Usuario normal
+INSERT INTO Usuarios (Nombre, Email, EsAdmin)
+VALUES ('Roberto Perez', 'robertoperez@gestortareas.com', 0);
+
+-- Insertar Tarea 1 para usuario 1
+INSERT INTO Tareas (Titulo, Prioridad, Estado, FechaLimite, UsuarioId)
+VALUES ('TareaBug', 2, 3, '2026-06-30', 1);
+
+-- Insertar el BUG asociado a la Tarea recién creada
+INSERT INTO Bugs (Id, ComportamientoEsperado, ComportamientoActual)
+VALUES (SCOPE_IDENTITY(), 'Entrar al dashboard', 'Pantallazo azul');
+
+-- Insertar Tarea 2 para usuario 2
+INSERT INTO Tareas (Titulo, Prioridad, Estado, FechaLimite, UsuarioId)
+VALUES ('TareaRecurrente001', 2, 3, '2026-07-20', 2);
+
+-- Insertar la Tarea Recurrente asociado a la Tarea recién creada
+INSERT INTO TareasRecurrentes (Id, Frecuencia, ProximaEjecucion)
+VALUES (SCOPE_IDENTITY(), 2, '2026-06-26');
