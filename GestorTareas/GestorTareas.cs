@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using GestorDeTareas.Application.Dtos;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace GestorDeTareas

@@ -12,7 +12,7 @@ equivalente).
 Meter en un README.md
 
 */
-namespace GestorDeTareas
+namespace GestorDeTareas.Domain.Entities
 {
     public abstract class Tarea
     {
