@@ -3,6 +3,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using GestorDeTareas.Domain.Enums;
 
+// TO DO - Entity Framework , Delete JSON for real DB Connection.
+
 namespace GestorDeTareas.Domain.Entities
 {
     public class TaskManager

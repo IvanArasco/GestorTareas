@@ -1,8 +1,6 @@
 ﻿/*
 
-Aseguraos de que vuestra colección de tareas es un List<Tarea> con capacidad inicial estimada. -> Capacity : 30 tareas
-
-2. Implementad algún mecanismo de acceso rápido por identificador (Dictionary u otra estructura que justifiquéis).
+Implementad algún mecanismo de acceso rápido por identificador (Dictionary u otra estructura que justifiquéis).
 Los métodos que devuelvan colecciones deben exponer el tipo más restrictivo posible (IEnumerable<T>,
 IReadOnlyList<T>...).
 
@@ -25,7 +23,7 @@ namespace GestorDeTareas.Domain.Entities
         public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; set; } = DateTime.Today;
         public DateTime? CompletionDate { get; set; }
-        public string CancellationReason { get; private set; }
+        public string? CancellationReason { get; private set; }
         public Task(string title, Priority taskPriority, DateTime completionDate, string description = null)
         {
             Id = Guid.NewGuid();
@@ -51,7 +49,11 @@ namespace GestorDeTareas.Domain.Entities
         }
         public virtual bool HasExpired() => CompletionDate < DateTime.Today;
 
-        public int CalcRemainingTime() => (CompletionDate - DateTime.Today).Days;
+        public int CalcRemainingTime()
+        {
+            if (!CompletionDate.HasValue) return 0;
+            return (CompletionDate.Value.Date - DateTime.Today).Days;
+        }
 
         public abstract override string ToString();
     }
