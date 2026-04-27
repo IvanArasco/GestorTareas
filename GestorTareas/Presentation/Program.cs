@@ -8,13 +8,29 @@ TaskManager gestor = new TaskManager();
 
 Random rnd = new Random();
 
-for (int i = 0; i < 30; i++)
+for (int i = 0; i < 5; i++) // Añadir Bugs
 {
-    
+    tareas.Add(new Bug(
+        $"Bug 00{i}", 
+        Priority.Medium, 
+        DateTime.Now.AddDays(5), 
+        $"ComportamientoActual 00{i}", 
+        $"ComportamientoEsperado 00{i}"
+       ) 
+    );
 }
 
-Task bug = new Bug("No se ve el botón", Priority.High, DateTime.Now.AddDays(5), "No se ve el botón", "Visualizar el botón");
-bug.Description = "Ya se ve pero va regulín";
+for (int i = 0; i < 5; i++) // Añadir Mejoras
+{
+    tareas.Add(new Improvement(
+        $"Mejora 00{i}",
+        $"Funcionalidad afectada 00{i}",
+        $"Cambio esperado 00{i}",
+        Priority.Medium,
+        DateTime.Now.AddDays(5)
+       )
+    );
+}
 
 //gestor.ListarTareas();
 /*

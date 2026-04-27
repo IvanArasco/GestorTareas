@@ -31,7 +31,7 @@ public class TaskManagerContext : DbContext
         // Limitar longitud del título
         modelBuilder.Entity<Task>()
         .Property(t => t.Title)
-        .HasMaxLength(200)
+        .HasMaxLength(150)
         .IsRequired();
         // Índice único en Email de Usuario
         modelBuilder.Entity<User>()
