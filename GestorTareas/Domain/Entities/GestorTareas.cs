@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GestorDeTareas
+namespace GestorDeTareas.Domain.Entities
 {
     public class GestorTareas
     {

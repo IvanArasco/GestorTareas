@@ -1,4 +1,4 @@
-﻿namespace GestorDeTareas
+﻿namespace GestorDeTareas.Domain.Entities
 {
     public class Bug : Tarea
     {

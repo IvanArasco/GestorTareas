@@ -1,4 +1,4 @@
-﻿namespace GestorDeTareas
+﻿namespace GestorDeTareas.Application.Dtos
 {
     public class TareaDto // guardar y recuperar los datos de la Tarea => Intermediario entre capa de negocio / lógica y frontend.
     {

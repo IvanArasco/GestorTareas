@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas;
+using GestorDeTareas.Domain.Entities;
 
 namespace TestGestorTareas
 {
