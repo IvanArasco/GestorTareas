@@ -3,25 +3,25 @@
 namespace GestorDeTareas.Domain.Entities
 
 {
-    public class Bug : Tarea
+    public class Bug : Task
     {
-        public string ComportamientoEsperado { get; set; }
-        public string ComportamientoActual { get; set; }
+        public string ExpectedBehaviour { get; set; }
+        public string ActualBehaviour { get; set; }
         public Bug(
-            string titulo,
-            Prioridad prioridadTarea,
-            DateTime fechaLimite,
-            string comportamientoActual,
-            string comportamientoEsperado = null,
-            string descripcion = null
+            string title,
+            Priority taskpriority,
+            DateTime completiondate,
+            string actualbehaviour,
+            string expectedbehaviour = null,
+            string description = null
             ) : base(
-                titulo,
-                prioridadTarea,
-                fechaLimite,
-                descripcion ?? $"Comportamiento actual: {comportamientoActual} | Comportamiento esperado: {comportamientoEsperado}")
+                title,
+                taskpriority,
+                completiondate,
+                description ?? $"Comportamiento actual: {actualbehaviour} | Comportamiento esperado: {expectedbehaviour}")
         {
-            ComportamientoEsperado = comportamientoEsperado;
-            ComportamientoActual = comportamientoActual;
+            this.ExpectedBehaviour = expectedbehaviour;
+            this.ActualBehaviour = actualbehaviour;
         }
     }
 }

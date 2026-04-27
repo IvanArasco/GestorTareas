@@ -4,13 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace GestorDeTareas.Domain.Entities
 {
-    public class GestorTareas
+    public class TaskManager
     {
         // lista por defecto de tareas que van a componer el JSON inicial y también utilizadas para pruebas
-        private List<TareaDto> tareasDto = [
-            new TareaDto("Tarea 001", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5)),
-            new TareaDto("Tarea 002", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5)),
-            new TareaDto("Tarea 003", TareaDto.Prioridad.Alta, DateTime.Today.AddDays(5))
+        private List<TaskDto> tareasDto = [
+            new TaskDto("Tarea 001", TaskDto.Priority.High, DateTime.Today.AddDays(5)),
+            new TaskDto("Tarea 002", TaskDto.Priority.High, DateTime.Today.AddDays(5)),
+            new TaskDto("Tarea 003", TaskDto.Priority.High, DateTime.Today.AddDays(5))
         ];
 
         private JsonSerializerOptions opciones = new JsonSerializerOptions
@@ -20,12 +20,12 @@ namespace GestorDeTareas.Domain.Entities
             Converters = { new JsonStringEnumConverter() },
             PropertyNameCaseInsensitive = true
         };
-        public void AgregarTarea(TareaDto nuevaTarea)
+        public void AddTask(TaskDto nuevaTarea)
         {
             if (nuevaTarea == null) throw new ArgumentNullException(nameof(nuevaTarea));
             tareasDto.Add(nuevaTarea);
         }
-        public TareaDto ObtenerTareaId(Guid id) => tareasDto.FirstOrDefault(t => t.Id == id);
+        public TaskDto GetTaskById(Guid id) => tareasDto.FirstOrDefault(t => t.Id == id);
 
         public void Guardar(string ruta) // guardar tarea del fichero JSON
         {
@@ -45,7 +45,7 @@ namespace GestorDeTareas.Domain.Entities
             try
             {
                 var json = File.ReadAllText(ruta);
-                tareasDto = JsonSerializer.Deserialize<List<TareaDto>>(json, opciones) ?? new();
+                tareasDto = JsonSerializer.Deserialize<List<TaskDto>>(json, opciones) ?? new();
             }
             catch (Exception ex)
             {
@@ -56,10 +56,10 @@ namespace GestorDeTareas.Domain.Entities
         {
             foreach (var t in tareasDto)
             {
-                Console.WriteLine($"{t.Id} | {t.Titulo} | {t.PrioridadTarea} | {t.EstadoTarea}");
+                Console.WriteLine($"{t.Id} | {t.Title} | {t.TaskPriority} | {t.TaskStatus}");
             }
         }
-         public IEnumerable<TareaDto> ObtenerTareas() => tareasDto; // obtener todas las TareasDTO como IEnumerable
+         public IEnumerable<TaskDto> GetTasks() => tareasDto; // obtener todas las TareasDTO como IEnumerable
         
     }
 }
