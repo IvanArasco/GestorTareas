@@ -23,5 +23,10 @@ namespace GestorDeTareas.Domain.Entities
             this.ExpectedBehaviour = expectedbehaviour;
             this.ActualBehaviour = actualbehaviour;
         }
+
+        public override string ToString()
+        {
+            return $"[BUG] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+        }
     }
 }

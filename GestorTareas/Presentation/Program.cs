@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.Domain.Entities;
+using Task = GestorDeTareas.Domain.Entities.Task;
 
-List<GestorDeTareas.Domain.Entities.Task> tareas = new List<GestorDeTareas.Domain.Entities.Task>(capacity: 30); // 30 tareas aprox
+List<Task> tareas = new List<Task>(capacity: 30); // 30 tareas aprox
 
 TaskManager gestor = new TaskManager();
 

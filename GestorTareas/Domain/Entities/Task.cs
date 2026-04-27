@@ -19,13 +19,13 @@ namespace GestorDeTareas.Domain.Entities
     public abstract class Task
     {
         public Guid Id { get; init; }
-        public string Title { get; set; }
+        public string Title { get; private set; }
         public string Description { get; set; }
         public Priority TaskPriority { get; set; }
-        public Status TaskStatus { get; set; } = Status.Pending;
+        public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; set; } = DateTime.Today;
         public DateTime CompletionDate { get; set; }
-        public string CancellationReason { get; set; }
+        public string CancellationReason { get; private set; }
         public Task(string title, Priority taskPriority, DateTime completionDate, string description = null)
         {
             Id = Guid.NewGuid();
@@ -53,9 +53,6 @@ namespace GestorDeTareas.Domain.Entities
 
         public int CalcRemainingTime() => (CompletionDate - DateTime.Today).Days;
 
-        public override string ToString()
-        {
-            return $"Resumen - Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
-        }
+        public abstract override string ToString();
     }
 }

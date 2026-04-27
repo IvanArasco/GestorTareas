@@ -17,5 +17,10 @@ namespace GestorDeTareas.Domain.Entities
             ExpectedBenefict = expectedBenefict;
             AffectedFeature = affectedFeature;
         }
+
+        public override string ToString()
+        {
+            return $"[MEJORA] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+        }
     }
 }

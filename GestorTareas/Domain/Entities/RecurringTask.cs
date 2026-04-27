@@ -28,6 +28,11 @@ namespace GestorDeTareas.Domain.Entities
 
         public bool ValidateNextExecutionDate(DateTime nextExecution) => nextExecution > LastExecution && CompletionDate > nextExecution;
 
+        public override string ToString()
+        {
+            return $"[RECURRENTE] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+        }
+
         //public void ValidarFechaUltimaEjecucion()
 
         // OBTENER Resumen ToSTRING [RECURRENTE] {Titulo} - Cada {IntervaloDias} dias.

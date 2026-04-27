@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using GestorDeTareas.Domain.Enums;
 
 namespace GestorDeTareas.Domain.Entities
 {
@@ -8,9 +9,9 @@ namespace GestorDeTareas.Domain.Entities
     {
         // lista por defecto de tareas que van a componer el JSON inicial y también utilizadas para pruebas
         private List<TaskDto> tareasDto = [
-            new TaskDto("Tarea 001", TaskDto.Priority.High, DateTime.Today.AddDays(5)),
-            new TaskDto("Tarea 002", TaskDto.Priority.High, DateTime.Today.AddDays(5)),
-            new TaskDto("Tarea 003", TaskDto.Priority.High, DateTime.Today.AddDays(5))
+            new TaskDto("Tarea 001", Priority.High, DateTime.Today.AddDays(5)),
+            new TaskDto("Tarea 002", Priority.High, DateTime.Today.AddDays(5)),
+            new TaskDto("Tarea 003", Priority.High, DateTime.Today.AddDays(5))
         ];
 
         private JsonSerializerOptions opciones = new JsonSerializerOptions

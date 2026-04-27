@@ -1,11 +1,12 @@
 ﻿using GestorDeTareas.Domain.Entities;
 using GestorDeTareas.Domain.Enums;
+using Task = GestorDeTareas.Domain.Entities.Task;
 
 namespace TestGestorTareas
 {
     public class TaskTests
     {
-        private GestorDeTareas.Domain.Entities.Task _taskTest;
+        private Task _taskTest;
 
         [SetUp]
         public void Setup()
@@ -34,10 +35,8 @@ namespace TestGestorTareas
         [Test]
         public void CancelTask()
         {
-
             // 2. ACT
             _taskTest.Cancel(_taskTest.CancellationReason);
-            _taskTest.Cancel(_taskTest.Description);
 
             // 3. ASSERT
             Assert.That(_taskTest.TaskStatus, Is.EqualTo(Status.Cancelled));

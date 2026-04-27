@@ -14,5 +14,10 @@ namespace GestorDeTareas.Domain.Entities
         {
             TaskArea = area;
         }
+
+        public override string ToString()
+        {
+            return $"[NUEVA FUNCIONALIDAD] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+        }
     }
 }
