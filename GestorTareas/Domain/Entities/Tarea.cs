@@ -12,6 +12,8 @@ equivalente).
 Meter en un README.md
 
 */
+using GestorDeTareas.Domain.Enums;
+
 namespace GestorDeTareas.Domain.Entities
 {
     public abstract class Tarea
@@ -19,9 +21,7 @@ namespace GestorDeTareas.Domain.Entities
         public Guid Id { get; init; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public enum Prioridad { Baja, Media, Alta, Urgente }
         public Prioridad PrioridadTarea { get; set; }
-        public enum Estado { Pendiente, EnProgreso, Completada, Cancelada }
         public Estado EstadoTarea { get; set; } = Estado.Pendiente;
         public DateTime FechaCreacion { get; set; } = DateTime.Today;
         public DateTime FechaLimite { get; set; }

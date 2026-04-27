@@ -1,4 +1,7 @@
-﻿namespace GestorDeTareas.Domain.Entities
+﻿using GestorDeTareas.Domain.Enums;
+
+namespace GestorDeTareas.Domain.Entities
+
 {
     public class Bug : Tarea
     {

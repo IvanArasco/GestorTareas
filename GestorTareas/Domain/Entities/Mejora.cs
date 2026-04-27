@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GestorDeTareas.Domain.Enums;
 
 namespace GestorDeTareas.Domain.Entities
 {
