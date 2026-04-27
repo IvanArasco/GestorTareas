@@ -33,5 +33,7 @@ namespace GestorDeTareas
         public bool ValidarFechaProximaEjecucion(DateTime proximaEjecucion) => proximaEjecucion > UltimaEjecucion && FechaLimite > proximaEjecucion;
 
         //public void ValidarFechaUltimaEjecucion()
+
+        // OBTENER Resumen ToSTRING [RECURRENTE] {Titulo} - Cada {IntervaloDias} dias.
     }
 }

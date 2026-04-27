@@ -9,7 +9,6 @@
         public enum Estado { Pendiente, EnProgreso, Completada, Cancelada }
         public Estado EstadoTarea { get; set; } = Estado.Pendiente;
         public DateTime FechaLimite { get; set; }
-
         public TareaDto() { }
         public TareaDto(string titulo, Prioridad prioridadTarea, DateTime fechaLimite)
         {
