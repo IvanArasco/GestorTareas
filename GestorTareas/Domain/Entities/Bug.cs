@@ -6,15 +6,15 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class Bug : Task
     {
-        public string ExpectedBehaviour { get; private set; }
+        public string? ExpectedBehaviour { get; private set; }
         public string ActualBehaviour { get; private set; }
         public Bug(
             string title,
             Priority taskpriority,
             DateTime completiondate,
             string actualbehaviour,
-            string expectedbehaviour = null,
-            string description = null
+            string? expectedbehaviour = null,
+            string? description = null
             ) : base(
                 title,
                 taskpriority,
@@ -32,7 +32,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Fecha Límite: {CompletionDate} " +
                 $"- Comportamiento actual: {ActualBehaviour} " +
                 $"{(ExpectedBehaviour != null ? $"- Comportamiento esperado: {ExpectedBehaviour} " : "")} " +
-                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

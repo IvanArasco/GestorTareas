@@ -13,9 +13,9 @@ namespace GestorDeTareas.Domain.Entities
             Priority priorityTask,
             DateTime completionDate,
             Frequency frecuency,
-            DateTime lastExecution,
+            DateTime? lastExecution,
             DateTime nextExecution,
-            string description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priorityTask, completionDate, description)
         {
             TaskFrequency = frecuency;
             LastExecution = lastExecution;
@@ -23,8 +23,6 @@ namespace GestorDeTareas.Domain.Entities
             NextExecution = ValidateNextExecutionDate(nextExecution)
                 ? nextExecution : throw new ArgumentException();
         }
-
-        public override bool HasExpired() => DateTime.Today > CompletionDate;
 
         public bool ValidateNextExecutionDate(DateTime nextExecution) => nextExecution > LastExecution && CompletionDate > nextExecution;
 
@@ -37,7 +35,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"{(LastExecution != null ? $"- Última ejecución: {LastExecution} " : "")}" +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
-                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
 
         //public void ValidarFechaUltimaEjecucion()

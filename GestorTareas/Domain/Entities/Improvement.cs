@@ -13,7 +13,7 @@ namespace GestorDeTareas.Domain.Entities
             string expectedBenefict,
             Priority priorityTask,
             DateTime completionDate,
-            string description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priorityTask, completionDate, description)
         {
             ExpectedBenefict = expectedBenefict;
             AffectedFeature = affectedFeature;
@@ -25,7 +25,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Estado: {TaskStatus} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
-                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace GestorDeTareas.Domain.Entities
             Priority priorityTask, 
             DateTime completionDate,
             DevelopmentArea area, 
-            string description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priorityTask, completionDate, description)
         {
             TaskArea = area;
         }
@@ -23,7 +23,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Área de desarrollo: {TaskArea} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
-                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }
