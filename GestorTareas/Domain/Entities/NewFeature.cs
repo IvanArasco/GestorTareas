@@ -1,10 +1,11 @@
 ﻿using GestorDeTareas.Domain.Enums;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 {
     public class NewFeature : Task
     {
-        public DevelopmentArea TaskArea { get; set; }
+        public DevelopmentArea TaskArea { get; private set; }
         public NewFeature(
             string title,
             Priority priorityTask, 
@@ -20,9 +21,9 @@ namespace GestorDeTareas.Domain.Entities
             return $"[NUEVA FUNCIONALIDAD] Título : {Title} " +
                 $"- Estado: {TaskStatus} " +
                 $"- Área de desarrollo: {TaskArea} " +
-                $"- Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} " +
+                $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
-                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
+                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

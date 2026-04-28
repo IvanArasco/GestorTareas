@@ -1,12 +1,13 @@
 ﻿using GestorDeTareas.Domain.Enums;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 
 {
     public class Bug : Task
     {
-        public string ExpectedBehaviour { get; set; }
-        public string ActualBehaviour { get; set; }
+        public string ExpectedBehaviour { get; private set; }
+        public string ActualBehaviour { get; private set; }
         public Bug(
             string title,
             Priority taskpriority,
@@ -31,7 +32,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Fecha Límite: {CompletionDate} " +
                 $"- Comportamiento actual: {ActualBehaviour} " +
                 $"{(ExpectedBehaviour != null ? $"- Comportamiento esperado: {ExpectedBehaviour} " : "")} " +
-                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
+                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using GestorDeTareas.Domain.Enums;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 {
     public class RecurringTask : Task
     {
-        public Frequency TaskFrequency { get; set; }
+        public Frequency TaskFrequency { get; private set; }
         public DateTime? LastExecution { get; private set; }
         public DateTime NextExecution { get; private set; }
-
         public RecurringTask(
            string title,
             Priority priorityTask,
@@ -35,9 +35,9 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Frecuencia: {TaskFrequency} " +
                 $"- Próxima ejecución: {NextExecution} " +
                 $"{(LastExecution != null ? $"- Última ejecución: {LastExecution} " : "")}" +
-                $"- Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} " +
+                $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
-                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
+                $"{(Description.IsNullOrEmpty() ? $"- Descripción: {Description}" : "")}";
         }
 
         //public void ValidarFechaUltimaEjecucion()
