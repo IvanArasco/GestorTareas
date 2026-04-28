@@ -1,5 +1,4 @@
 ﻿using GestorDeTareas.Domain.Enums;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 {
@@ -32,14 +31,10 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Estado: {TaskStatus} " +
                 $"- Frecuencia: {TaskFrequency} " +
                 $"- Próxima ejecución: {NextExecution} " +
-                $"{(LastExecution != null ? $"- Última ejecución: {LastExecution} " : "")}" +
+                $"{(LastExecution.HasValue ? $"- Última ejecución: {LastExecution} " : "")}" +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
-
-        //public void ValidarFechaUltimaEjecucion()
-
-        // OBTENER Resumen ToSTRING [RECURRENTE] {Titulo} - Cada {IntervaloDias} dias.
     }
 }

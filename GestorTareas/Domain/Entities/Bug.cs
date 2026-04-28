@@ -1,5 +1,4 @@
 ﻿using GestorDeTareas.Domain.Enums;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 

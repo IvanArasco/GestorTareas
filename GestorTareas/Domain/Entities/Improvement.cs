@@ -1,16 +1,15 @@
 ﻿using GestorDeTareas.Domain.Enums;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GestorDeTareas.Domain.Entities
 {
     public class Improvement : Task
     {
         public string AffectedFeature { get; private set; }
-        public string ExpectedBenefict { get; private set; }
+        public string? ExpectedBenefict { get; private set; }
         public Improvement(
             string title,
             string affectedFeature,
-            string expectedBenefict,
+            string? expectedBenefict,
             Priority priorityTask,
             DateTime completionDate,
             string? description = null) : base(title, priorityTask, completionDate, description)
@@ -24,7 +23,9 @@ namespace GestorDeTareas.Domain.Entities
             return $"[MEJORA] Título : {Title} " +
                 $"- Estado: {TaskStatus} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
-                $"- Fecha Límite: {CompletionDate} " +
+                $"- Fecha Límite: {CompletionDate:dd/MM/yyyy} " +
+                $"- Característica afectada: {AffectedFeature} " +
+                $"{(ExpectedBenefict != null ? $"- Beneficio esperado: {ExpectedBenefict} " : "" )}" +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
