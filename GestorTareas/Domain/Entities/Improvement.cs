@@ -7,7 +7,7 @@ namespace GestorDeTareas.Domain.Entities
         public string AffectedFeature { get; set; }
         public string ExpectedBenefict { get; set; }
         public Improvement(
-            string title, 
+            string title,
             string affectedFeature,
             string expectedBenefict,
             Priority priorityTask,
@@ -20,7 +20,11 @@ namespace GestorDeTareas.Domain.Entities
 
         public override string ToString()
         {
-            return $"[MEJORA] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+            return $"[MEJORA] Título : {Title} " +
+                $"- Estado: {TaskStatus} " +
+                $"- Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} " +
+                $"- Fecha Límite: {CompletionDate} " +
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

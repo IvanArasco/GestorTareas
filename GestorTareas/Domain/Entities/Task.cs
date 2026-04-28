@@ -1,16 +1,4 @@
-﻿/*
-
-Implementad algún mecanismo de acceso rápido por identificador (Dictionary u otra estructura que justifiquéis).
-Los métodos que devuelvan colecciones deben exponer el tipo más restrictivo posible (IEnumerable<T>,
-IReadOnlyList<T>...).
-
-3. Añadid al menos un método de búsqueda que acepte un criterio externo como parámetro (Func<Tarea, bool> o
-equivalente).
-
-Meter en un README.md
-
-*/
-using GestorDeTareas.Domain.Enums;
+﻿using GestorDeTareas.Domain.Enums;
 
 namespace GestorDeTareas.Domain.Entities
 {

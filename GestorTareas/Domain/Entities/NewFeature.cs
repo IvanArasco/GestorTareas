@@ -17,7 +17,12 @@ namespace GestorDeTareas.Domain.Entities
 
         public override string ToString()
         {
-            return $"[NUEVA FUNCIONALIDAD] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+            return $"[NUEVA FUNCIONALIDAD] Título : {Title} " +
+                $"- Estado: {TaskStatus} " +
+                $"- Área de desarrollo: {TaskArea} " +
+                $"- Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} " +
+                $"- Fecha Límite: {CompletionDate} " +
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }

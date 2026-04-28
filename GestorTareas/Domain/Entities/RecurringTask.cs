@@ -12,12 +12,12 @@ namespace GestorDeTareas.Domain.Entities
            string title,
             Priority priorityTask,
             DateTime completionDate,
-            Frequency frecuencia,
+            Frequency frecuency,
             DateTime lastExecution,
             DateTime nextExecution,
             string description = null) : base(title, priorityTask, completionDate, description)
         {
-            TaskFrequency = frecuencia;
+            TaskFrequency = frecuency;
             LastExecution = lastExecution;
 
             NextExecution = ValidateNextExecutionDate(nextExecution)
@@ -30,7 +30,14 @@ namespace GestorDeTareas.Domain.Entities
 
         public override string ToString()
         {
-            return $"[RECURRENTE] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+            return $"[RECURRENTE] Título : {Title} " +
+                $"- Estado: {TaskStatus} " +
+                $"- Frecuencia: {TaskFrequency} " +
+                $"- Próxima ejecución: {NextExecution} " +
+                $"{(LastExecution != null ? $"- Última ejecución: {LastExecution} " : "")}" +
+                $"- Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} " +
+                $"- Fecha Límite: {CompletionDate} " +
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
 
         //public void ValidarFechaUltimaEjecucion()

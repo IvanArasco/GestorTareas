@@ -2,41 +2,73 @@
 using GestorDeTareas.Domain.Enums;
 using Task = GestorDeTareas.Domain.Entities.Task;
 
-List<Task> tareas = new List<Task>(capacity: 30); // 30 tareas aprox
-
-TaskManager gestor = new TaskManager();
-
-Random rnd = new Random();
-
-for (int i = 0; i < 5; i++) // Añadir Bugs
+public class Program
 {
-    tareas.Add(new Bug(
-        $"Bug 00{i}", 
-        Priority.Medium, 
-        DateTime.Now.AddDays(5), 
-        $"ComportamientoActual 00{i}", 
-        $"ComportamientoEsperado 00{i}"
-       ) 
-    );
+    public static void Main(string[] args)
+    {
+        List<Task> tareas = new List<Task>(capacity: 30); // 30 tareas aprox
+
+        TaskManager gestor = new TaskManager();
+        GenerateTasks(tareas);
+        foreach (Task task in tareas)
+        {
+            Console.WriteLine(task.ToString());
+        }
+
+    }
+    private static void GenerateTasks(List<Task> tareas)
+    {
+        for (int i = 0; i < 5; i++) // Añadir Bugs
+        {
+            tareas.Add(new Bug(
+                $"Bug 00{i}",
+                Priority.Medium,
+                DateTime.Now.AddDays(5),
+                $"ComportamientoActual 00{i}",
+                $"ComportamientoEsperado 00{i}"
+               )
+            );
+        }
+
+        for (int i = 0; i < 5; i++) // Añadir Mejoras
+        {
+            tareas.Add(new Improvement(
+                $"Mejora 00{i}",
+                $"Funcionalidad afectada 00{i}",
+                $"Cambio esperado 00{i}",
+                Priority.Medium,
+                DateTime.Now.AddDays(4)
+               )
+            );
+        }
+
+        for (int i = 0; i < 5; i++) // Añadir Nuevas funcionalidades
+        {
+            tareas.Add(new NewFeature(
+                $"Nueva funcionalidad 00{i}",
+                Priority.High,
+                DateTime.Now.AddDays(3),
+                DevelopmentArea.Backend
+               )
+            );
+        }
+
+        for (int i = 0; i < 5; i++) // Añadir Tareas recurrentes
+        {
+            tareas.Add(new RecurringTask(
+                $"Tarea recurrente 00{i}",
+                Priority.Low,
+                DateTime.Now.AddDays(8),
+                Frequency.Weekly,
+                DateTime.Now,
+                DateTime.Now.AddDays(4)
+               )
+            );
+        }
+    }
 }
 
-for (int i = 0; i < 5; i++) // Añadir Mejoras
-{
-    tareas.Add(new Improvement(
-        $"Mejora 00{i}",
-        $"Funcionalidad afectada 00{i}",
-        $"Cambio esperado 00{i}",
-        Priority.Medium,
-        DateTime.Now.AddDays(5)
-       )
-    );
-}
-
-//gestor.ListarTareas();
-/*
- * Tarea bug = new Bug("No se ve el botón", Tarea.Prioridad.Alta, DateTime.Now.AddDays(5), "No se ve el botón", "Visualizar el botón");
-bug.Descripcion = "Ya se ve pero va regulín";
-Console.WriteLine(bug);
+/* gestor.ListarTareas();
 
 gestor = new GestorTareas();
 gestor.Cargar("./tareas.json");

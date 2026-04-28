@@ -18,15 +18,20 @@ namespace GestorDeTareas.Domain.Entities
                 title,
                 taskpriority,
                 completiondate,
-                description ?? $"Comportamiento actual: {actualbehaviour} | Comportamiento esperado: {expectedbehaviour}")
+                description)
         {
-            this.ExpectedBehaviour = expectedbehaviour;
-            this.ActualBehaviour = actualbehaviour;
+            ExpectedBehaviour = expectedbehaviour;
+            ActualBehaviour = actualbehaviour;
         }
-
         public override string ToString()
         {
-            return $"[BUG] Título : {Title} - Estado: {TaskStatus} - Fecha Creación: {CreationDate.ToString("dd/MM/yyyy")} - Fecha Límite: {CompletionDate} - Descripción: {Description}";
+            return $"[BUG] Título: {Title} " +
+                $"- Estado: {TaskStatus} " +
+                $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
+                $"- Fecha Límite: {CompletionDate} " +
+                $"- Comportamiento actual: {ActualBehaviour} " +
+                $"{(ExpectedBehaviour != null ? $"- Comportamiento esperado: {ExpectedBehaviour} " : "")} " +
+                $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }
 }
