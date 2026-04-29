@@ -1,4 +1,7 @@
-﻿namespace GestorDeTareas.Domain.Entities
+﻿using System.Text.RegularExpressions;
+using System.Web.Helpers;
+
+namespace GestorDeTareas.Domain.Entities
 {
     public class User
     {
@@ -12,11 +15,20 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            Email = email;
+            Email = ValidarEmail(email) ? email : throw new InvalidOperationException("Error creando el mail");
             Birthdate = birthdate;
             IsAdmin = isAdmin;
         }
 
+        private static bool ValidarEmail(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            }
+            return false;
+
+        }
         public override string ToString()
         {
             return $"[USER] Nombre : {Name} - Email: {Email} - Fecha Nacimiento: {Birthdate} - {(IsAdmin ? "Es admin" : "No es admin")}";
