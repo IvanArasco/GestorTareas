@@ -9,19 +9,19 @@ namespace GestorDeTareas.Domain.Entities
         public string ActualBehaviour { get; private set; }
         public Bug(
             string title,
-            Priority taskpriority,
-            DateTime completiondate,
-            string actualbehaviour,
-            string? expectedbehaviour = null,
+            Priority priority,
+            DateTime completionDate,
+            string actualBehaviour,
+            string? expectedBehaviour = null,
             string? description = null
             ) : base(
                 title,
-                taskpriority,
-                completiondate,
+                priority,
+                completionDate,
                 description)
         {
-            ExpectedBehaviour = expectedbehaviour;
-            ActualBehaviour = actualbehaviour;
+            ExpectedBehaviour = expectedBehaviour;
+            ActualBehaviour = actualBehaviour;
         }
         public override string ToString()
         {

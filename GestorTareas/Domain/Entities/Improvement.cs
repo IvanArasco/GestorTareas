@@ -10,9 +10,9 @@ namespace GestorDeTareas.Domain.Entities
             string title,
             string affectedFeature,
             string? expectedBenefict,
-            Priority priorityTask,
+            Priority priority,
             DateTime completionDate,
-            string? description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priority, completionDate, description)
         {
             ExpectedBenefict = expectedBenefict;
             AffectedFeature = affectedFeature;

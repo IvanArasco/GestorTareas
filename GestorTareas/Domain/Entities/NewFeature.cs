@@ -4,22 +4,22 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class NewFeature : Task
     {
-        public DevelopmentArea TaskArea { get; private set; }
+        public DevelopmentArea Area { get; private set; }
         public NewFeature(
             string title,
-            Priority priorityTask, 
+            Priority priority, 
             DateTime completionDate,
             DevelopmentArea area, 
-            string? description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priority, completionDate, description)
         {
-            TaskArea = area;
+            Area = area;
         }
 
         public override string ToString()
         {
             return $"[NUEVA FUNCIONALIDAD] Título : {Title} " +
                 $"- Estado: {TaskStatus} " +
-                $"- Área de desarrollo: {TaskArea} " +
+                $"- Área de desarrollo: {Area} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {CompletionDate} " +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";

@@ -4,19 +4,19 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class RecurringTask : Task
     {
-        public Frequency TaskFrequency { get; private set; }
+        public Frequency Frequency { get; private set; }
         public DateTime? LastExecution { get; private set; }
         public DateTime NextExecution { get; private set; }
         public RecurringTask(
            string title,
-            Priority priorityTask,
+            Priority priority,
             DateTime completionDate,
-            Frequency frecuency,
+            Frequency frequency,
             DateTime? lastExecution,
             DateTime nextExecution,
-            string? description = null) : base(title, priorityTask, completionDate, description)
+            string? description = null) : base(title, priority, completionDate, description)
         {
-            TaskFrequency = frecuency;
+            Frequency = frequency;
             LastExecution = lastExecution;
 
             NextExecution = ValidateNextExecutionDate(nextExecution)
@@ -29,7 +29,7 @@ namespace GestorDeTareas.Domain.Entities
         {
             return $"[RECURRENTE] Título : {Title} " +
                 $"- Estado: {TaskStatus} " +
-                $"- Frecuencia: {TaskFrequency} " +
+                $"- Frecuencia: {Frequency} " +
                 $"- Próxima ejecución: {NextExecution} " +
                 $"{(LastExecution.HasValue ? $"- Última ejecución: {LastExecution} " : "")}" +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +

@@ -54,10 +54,10 @@ namespace TestGestorTareas
         public void CalcRemainingTime()
         {
             // 2. ACT
-            _taskTest.CalcRemainingTime();
+            _taskTest.CalcRemainingDays();
 
             // 3. ASSERT
-            Assert.That(_taskTest.CalcRemainingTime(), Is.GreaterThan(0));
+            Assert.That(_taskTest.CalcRemainingDays(), Is.GreaterThan(0));
         }
     }
 }

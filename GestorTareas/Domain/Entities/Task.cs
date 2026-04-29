@@ -7,10 +7,10 @@ namespace GestorDeTareas.Domain.Entities
         public Guid Id { get; init; }
         public string Title { get; private set; }
         public string? Description { get; set; }
-        public Priority TaskPriority { get; private set; }
+        public Priority Priority { get; private set; }
         public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; private set; } = DateTime.Today;
-        public DateTime? CompletionDate { get; private set; }
+        public DateTime CompletionDate { get; private set; }
         public string? CancellationReason { get; private set; }
         public Task(string title, Priority taskPriority, DateTime completionDate, string? description = null)
         {
@@ -22,7 +22,7 @@ namespace GestorDeTareas.Domain.Entities
             CompletionDate = completionDate < DateTime.Today
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : completionDate;
 
-            TaskPriority = taskPriority;
+            Priority = taskPriority;
              
             Description = description;
         }
@@ -45,21 +45,17 @@ namespace GestorDeTareas.Domain.Entities
             TaskStatus = Status.Cancelled;
             CancellationReason = reason;
         }
-        public bool HasExpired() => CompletionDate.HasValue 
-            && CompletionDate < DateTime.Today 
+        public bool HasExpired() => CompletionDate < DateTime.Today 
             && TaskStatus != Status.Completed 
             && TaskStatus != Status.Cancelled;
 
-        public int CalcRemainingTime()
-        {
-            if (!CompletionDate.HasValue || HasExpired()) return 0;
-            return (CompletionDate.Value.Date - DateTime.Today).Days;
-        }
+        public int CalcRemainingDays() => HasExpired() ? 0 : (CompletionDate.Date - DateTime.Today).Days;
+        
         public void ChangePriority(Priority newPriority)
         {
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
-            TaskPriority = newPriority;
+            Priority = newPriority;
         }
 
         public abstract override string ToString();

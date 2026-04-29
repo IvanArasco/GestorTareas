@@ -2,13 +2,15 @@
 {
     public class User
     {
+        public Guid Id { get; init; }
         public string Name {  get; private set; }
         public string Email { get; private set; }
-        public DateTime Birthdate { get; private set; }
+        public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
 
-        public User(string name, string email, DateTime birthdate, bool isAdmin)
+        public User(string name, string email, DateOnly birthdate, bool isAdmin)
         {
+            Id = Guid.NewGuid();
             Name = name;
             Email = email;
             Birthdate = birthdate;
