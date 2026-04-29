@@ -98,3 +98,31 @@ VALUES ('TareaMejora001', 1, 2, '2026-06-24', 1);
 -- Insertar la Tarea Mejora asociado a la Tarea recién creada
 INSERT INTO Mejoras (Id, FuncionalidadAfectada, BeneficioEsperado)
 VALUES (SCOPE_IDENTITY(), 'Login', 'Agregar botón de recordar nombre de usuario');
+
+--------
+
+TRAS LOS CAMBIOS (uso de migración y conversión a API)
+
+-- Insertar 2 Usuarios
+
+INSERT INTO dbo.Users (Id, Name, Email, Birthdate, IsAdmin) VALUES (NEWID(), 'Ivan', 'arascoivan97@gmail.com', '1997-05-01', 0);
+
+INSERT INTO dbo.Users (Id, Name, Email, Birthdate, IsAdmin) VALUES (NEWID(), 'Rodolfo', 'rodolfo@hotmail.com', '1974-07-23', 1);
+
+-- Insertar 4 tareas (una de cada)
+
+-- Bug
+INSERT INTO dbo.Tasks (Id, Title, Description, Priority, TaskStatus, CreationDate, CompletionDate, TipoTarea, ActualBehaviour, ExpectedBehaviour)
+VALUES (NEWID(), 'Login no responde', 'El botón de login no hace nada', 2, 0, GETDATE(), '2026-06-01', 'Bug', 'Pantalla en blanco', 'Redirigir al dashboard');
+
+-- Improvement
+INSERT INTO dbo.Tasks (Id, Title, Description, Priority, TaskStatus, CreationDate, CompletionDate, TipoTarea, AffectedFeature, ExpectedBenefict)
+VALUES (NEWID(), 'Agregar opcion al filtro', NULL, 1, 0, GETDATE(), '2026-06-15', 'Mejora', 'Buscador', 'Ver nueva opcion en el selector para filtrar');
+
+-- NewFeature
+INSERT INTO dbo.Tasks (Id, Title, Description, Priority, TaskStatus, CreationDate, CompletionDate, TipoTarea, Area)
+VALUES (NEWID(), 'Modo oscuro', 'Implementar tema oscuro', 0, 0, GETDATE(), '2026-07-01', 'Nueva funcionalidad', 0);
+
+-- RecurringTask
+INSERT INTO dbo.Tasks (Id, Title, Description, Priority, TaskStatus, CreationDate, CompletionDate, TipoTarea, Frequency, LastExecution, NextExecution)
+VALUES (NEWID(), 'Backup base de datos', 'Copia de seguridad diaria', 3, 0, GETDATE(), '2026-12-31', 'Recurrente', 0, NULL, '2026-05-01');
