@@ -18,7 +18,6 @@ namespace GestorDeTareas.Domain.Entities
             Birthdate = birthdate;
             IsAdmin = isAdmin;
         }
-
         private static bool ValidarEmail(string email)
         {
             if (!string.IsNullOrEmpty(email))
