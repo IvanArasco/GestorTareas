@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // PARTE 1: registrar servicios
