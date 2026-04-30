@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GestorDeTareas.Application.Services;
+using GestorDeTareas.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +19,10 @@ builder.Configuration
 
 // 2. Repositorio — cuando alguien pida ITareaRepositorio
 // dar un TareaRepositorioEF
-builder.Services.AddScoped<ITareaRepositorio, TareaRepositorioEF>();
+builder.Services.AddScoped<ITaskRepository, TaskRepositoryEF>();
 
 // 3. Servicio
-builder.Services.AddScoped<GestorTareasService>();
+builder.Services.AddScoped<TaskManagerService>();
 
 var app = builder.Build();
 

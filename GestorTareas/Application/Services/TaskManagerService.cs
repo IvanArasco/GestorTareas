@@ -9,8 +9,7 @@ namespace GestorDeTareas.Application.Services
     {
         private readonly ITaskRepository _repository;
 
-        public TaskManagerService(ITaskRepository repositorio)
-        => _repository = repositorio;
+        public TaskManagerService(ITaskRepository repositorio) => _repository = repositorio;
         public List<Task> GetAll() => _repository.GetAll();
         public Task? GetById(Guid id) => _repository.GetTaskById(id);
 
