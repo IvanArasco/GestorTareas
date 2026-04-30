@@ -22,12 +22,8 @@ namespace GestorDeTareas.Domain.Entities
         }
         private static bool ValidarEmail(string email)
         {
-            if (!string.IsNullOrEmpty(email))
-            {
-                return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-            }
-            return false;
-
+            if (string.IsNullOrEmpty(email)) return false;
+            return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
         }
         public override string ToString()
         {
