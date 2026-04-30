@@ -4,15 +4,15 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class User
     {
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Name { get; private set; }
         public string Email { get; private set; }
         public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
-
+        public ICollection<Task> Tasks { get; private set; } = new List<Task>();
         public User(string name, string email, DateOnly birthdate, bool isAdmin)
         {
-            Id = Guid.NewGuid();
+
             Name = string.IsNullOrWhiteSpace(name)
             ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
             : name;

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorDeTareas.Migrations
 {
     [DbContext(typeof(TaskManagerContext))]
-    [Migration("20260429102151_CreacionInicial")]
-    partial class CreacionInicial
+    [Migration("20260430105127_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,21 +26,23 @@ namespace GestorDeTareas.Migrations
 
             modelBuilder.Entity("GestorDeTareas.Domain.Entities.Task", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CancellationReason")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CompletionDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -58,7 +60,12 @@ namespace GestorDeTareas.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tasks");
 
@@ -69,9 +76,11 @@ namespace GestorDeTareas.Migrations
 
             modelBuilder.Entity("GestorDeTareas.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("Birthdate")
                         .HasColumnType("date");
@@ -147,6 +156,22 @@ namespace GestorDeTareas.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasDiscriminator().HasValue("Recurrente");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Domain.Entities.Task", b =>
+                {
+                    b.HasOne("GestorDeTareas.Domain.Entities.User", "User")
+                        .WithMany("Tasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

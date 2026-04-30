@@ -7,11 +7,12 @@ public class TasksController : ControllerBase
     {
         _context = context;
     }
-
+    /*
     // GET /api/tareas
     [HttpGet]
     public IActionResult GetAll()
     {
+
         var tareas = _context.Tasks
         .Include(t => t.User)
         .Select(t => new
@@ -47,7 +48,7 @@ public class TasksController : ControllerBase
             Usuario = tarea.Usuario.Nombre
         });
     }
-    /*
+
     // PUT /api/tareas/1
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] CrearTareaDto dto)

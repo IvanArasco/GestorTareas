@@ -10,11 +10,12 @@ namespace GestorDeTareas.Domain.Entities
         public RecurringTask(
            string title,
             Priority priority,
-            DateTime completionDate,
+            DateTime expirationDate,
             Frequency frequency,
             DateTime? lastExecution,
             DateTime nextExecution,
-            string? description = null) : base(title, priority, completionDate, description)
+            int userId,
+            string? description = null) : base(title, priority, expirationDate, userId, description)
         {
             Frequency = frequency;
             LastExecution = lastExecution;

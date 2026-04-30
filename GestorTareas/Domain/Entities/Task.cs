@@ -4,7 +4,7 @@ namespace GestorDeTareas.Domain.Entities
 {
     public abstract class Task
     {
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Title { get; private set; }
         public string? Description { get; set; }
         public Priority Priority { get; private set; }
@@ -12,17 +12,18 @@ namespace GestorDeTareas.Domain.Entities
         public DateTime CreationDate { get; private set; } = DateTime.Today;
         public DateTime ExpirationDate { get; private set; }
         public string? CancellationReason { get; private set; }
-
-        public Guid UserId { get; private set; }
-        public Task(string title, Priority taskPriority, DateTime completionDate, string? description = null)
+        public int UserId { get; private set; }
+        public User User { get; private set; }
+        public Task(string title, Priority taskPriority, DateTime expirationDate, int userId, string? description = null)
         {
-            Id = Guid.NewGuid();
 
             Title = string.IsNullOrWhiteSpace(title)
                 ? throw new ArgumentException("El título no puede estar vacío") : title;
 
-            ExpirationDate = completionDate < DateTime.Today
-                ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : completionDate;
+            ExpirationDate = expirationDate < DateTime.Today
+                ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : expirationDate;
+
+            UserId = userId;
 
             Priority = taskPriority;
              

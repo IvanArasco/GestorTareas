@@ -9,17 +9,19 @@ namespace GestorDeTareas.Infrastructure.Repositories
 
         public TaskRepositoryEF(TaskManagerContext context)
         => _context = context;
+        public List<Task> GetAll() => _context.Tasks.ToList();
 
-        public List<Task> GetAll() => _context.Tasks.Include(t => t.User).ToList();
+        public Task? GetTaskById(int id) => _context.Tasks.FirstOrDefault(t => id == t.UserId);
 
-        public Task? GetTaskById(Guid id) => _context.Tasks.Include(t => t.User).FirstOrDefault(t => t.Id == id);
+        //public List<Task> GetAll() => _context.Tasks.Include(t => t.User).ToList();
+
+        //public Task? GetTaskById(Guid id) => _context.Tasks.Include(t => t.User).FirstOrDefault(t => t.Id == id);
 
         public void AddTask(Task task)
         {
             _context.Tasks.Add(task);
             _context.SaveChanges();
         }
-
         public void Update(Task task)
         {
             _context.Tasks.Update(task);

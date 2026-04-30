@@ -10,14 +10,16 @@ namespace GestorDeTareas.Domain.Entities
         public Bug(
             string title,
             Priority priority,
-            DateTime completionDate,
+            DateTime expirationDate,
+            int userId,
             string actualBehaviour,
             string? expectedBehaviour = null,
             string? description = null
             ) : base(
                 title,
                 priority,
-                completionDate,
+                expirationDate,
+                userId,
                 description)
         {
             ExpectedBehaviour = expectedBehaviour;

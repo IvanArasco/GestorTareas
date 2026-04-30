@@ -8,9 +8,10 @@ namespace GestorDeTareas.Domain.Entities
         public NewFeature(
             string title,
             Priority priority, 
-            DateTime completionDate,
+            DateTime expirationDate,
+            int userId,
             DevelopmentArea area, 
-            string? description = null) : base(title, priority, completionDate, description)
+            string? description = null) : base(title, priority, expirationDate, userId, description)
         {
             Area = area;
         }

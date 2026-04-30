@@ -11,8 +11,9 @@ namespace GestorDeTareas.Application.Services
 
         public TaskManagerService(ITaskRepository repositorio) => _repository = repositorio;
         public List<Task> GetAll() => _repository.GetAll();
-        public Task? GetById(Guid id) => _repository.GetTaskById(id);
+        public Task? GetById(int id) => _repository.GetTaskById(id);
 
+        /*
         public Task Create(string title, DateTime? expirationDate, int userId)
         {
             // Validación de negocio — no pertenece al controller
@@ -22,8 +23,8 @@ namespace GestorDeTareas.Application.Services
             _repository.AddTask(task);
             return task;
         }
-
-        public void Complete(Guid id)
+        */
+        public void Complete(int id)
         {
             var task = _repository.GetTaskById(id)
             ?? throw new KeyNotFoundException($"No existe la tarea con Id {id}");
