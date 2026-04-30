@@ -12,6 +12,8 @@ namespace GestorDeTareas.Domain.Entities
         public DateTime CreationDate { get; private set; } = DateTime.Today;
         public DateTime ExpirationDate { get; private set; }
         public string? CancellationReason { get; private set; }
+
+        public Guid UserId { get; private set; }
         public Task(string title, Priority taskPriority, DateTime completionDate, string? description = null)
         {
             Id = Guid.NewGuid();
