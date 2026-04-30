@@ -12,18 +12,16 @@ namespace GestorDeTareas.Application.Services
         public TaskManagerService(ITaskRepository repositorio) => _repository = repositorio;
         public List<Task> GetAll() => _repository.GetAll();
         public Task? GetById(int id) => _repository.GetTaskById(id);
-
-        /*
-        public Task Create(string title, DateTime? expirationDate, int userId)
+        public Task Create(string title, Priority priority, DateTime expirationDate, int userId, DevelopmentArea developmentArea)
         {
             // Validación de negocio — no pertenece al controller
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("El título no puede estar vacío");
-            var task = new NewFeature("Modo oscuro", Priority.Low, DateTime.Today.AddDays(5), DevelopmentArea.Frontend);
+            var task = new NewFeature(title, priority, expirationDate, userId, developmentArea);
             _repository.AddTask(task);
             return task;
         }
-        */
+        
         public void Complete(int id)
         {
             var task = _repository.GetTaskById(id)

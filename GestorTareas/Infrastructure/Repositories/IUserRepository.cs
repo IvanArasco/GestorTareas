@@ -12,4 +12,3 @@ namespace GestorDeTareas.Infrastructure.Repositories
     }
 
 }
-}
