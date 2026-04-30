@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GestorDeTareas.Application.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 public class TasksController : ControllerBase
 {
@@ -7,62 +8,59 @@ public class TasksController : ControllerBase
     {
         _context = context;
     }
-    /*
+
     // GET /api/tareas
     [HttpGet]
     public IActionResult GetAll()
     {
 
-        var tareas = _context.Tasks
+        var tasks = _context.Tasks
         .Include(t => t.User)
         .Select(t => new
         {
             t.Id,
-            t.Titulo,
-            t.EstaCompletada,
-            t.FechaLimite,
-            Usuario = t.Usuario.Nombre
+            t.Title,
+            t.ExpirationDate,
+            User = t.User.Name
         })
         .ToList();
 
-        return Ok(tareas);
+        return Ok(tasks);
     }
 
     // GET /api/tareas/1
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var tarea = _context.Tasks
+        var tasks = _context.Tasks
         .Include(t => t.User)
         .FirstOrDefault(t => t.Id == id);
 
-        if (tarea == null)
+        if (tasks == null)
             return NotFound();
 
         return Ok(new
         {
-            tarea.Id,
-            tarea.Titulo,
-            tarea.EstaCompletada,
-            tarea.FechaLimite,
-            Usuario = tarea.Usuario.Nombre
+            tasks.Id,
+            tasks.Title,
+            tasks.ExpirationDate,
+            Usuario = tasks.User.Name
         });
     }
 
     // PUT /api/tareas/1
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] CrearTareaDto dto)
+    public IActionResult Update(int id, [FromBody] TaskDto dto)
     {
-        var tarea = _context.Tareas.Find(id);
-        if (tarea == null) return NotFound();
+        var task = _context.Tasks.Find(id);
+        if (task == null) return NotFound();
 
-        tarea.Titulo = dto.Titulo;
-        tarea.FechaLimite = dto.FechaLimite;
+        task.Title = dto.Title;
+        task.ExpirationDate = dto.ExpirationDate;
         _context.SaveChanges();
 
         return NoContent();
     }
-    */
 
     // DELETE /api/tareas/1
     [HttpDelete("{id}")]

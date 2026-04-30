@@ -9,13 +9,13 @@ namespace GestorDeTareas.Application.Dtos
         public string Title { get; set; }
         public Priority TaskPriority { get; set; }
         public Status TaskStatus { get; set; } = Status.Pending;
-        public DateTime CompletionDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
         public TaskDto() { }
-        public TaskDto(string title, Priority priorityTask, DateTime completionDate)
+        public TaskDto(string title, Priority priorityTask, DateTime expirationDate)
         {
             Title = title;
             TaskPriority = priorityTask;
-            CompletionDate = completionDate;
+            ExpirationDate = expirationDate;
         }
     }
 }
