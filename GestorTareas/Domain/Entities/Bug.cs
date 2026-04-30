@@ -23,6 +23,11 @@ namespace GestorDeTareas.Domain.Entities
             ExpectedBehaviour = expectedBehaviour;
             ActualBehaviour = actualBehaviour;
         }
+
+        public Bug()
+        {
+        }
+
         public override string ToString()
         {
             return $"[BUG] Título: {Title} " +

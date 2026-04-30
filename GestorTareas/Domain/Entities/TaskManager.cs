@@ -20,7 +20,7 @@ namespace GestorDeTareas.Domain.Entities
             if (task == null) throw new ArgumentNullException(nameof(task));
             tareasDto.Add(task);
         }
-        public TaskDto GetTaskById(Guid id) => tareasDto.FirstOrDefault(t => t.Id == id);
+        public TaskDto GetTaskById(Guid id) => tasks.FirstOrDefault(t => t.Id == id);
 
          public IEnumerable<TaskDto> GetTasks() => tareasDto; // obtener todas las TareasDTO como IEnumerable
         

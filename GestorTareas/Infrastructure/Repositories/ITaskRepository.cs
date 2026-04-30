@@ -1,4 +1,7 @@
-﻿namespace GestorDeTareas.Infrastructure.Repositories
+﻿using Task = GestorDeTareas.Domain.Entities.Task;
+
+namespace GestorDeTareas.Infrastructure.Repositories
+
 {
     public interface ITaskRepository
     {
