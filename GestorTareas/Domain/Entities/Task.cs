@@ -62,14 +62,13 @@ namespace GestorDeTareas.Domain.Entities
             && TaskStatus != Status.Cancelled;
 
         public int CalcRemainingDays() => HasExpired() ? 0 : (ExpirationDate.Date - DateTime.Today).Days;
-        
+
         public void ChangePriority(Priority newPriority)
         {
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
             Priority = newPriority;
         }
-
         public abstract override string ToString();
     }
 }
