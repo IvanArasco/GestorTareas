@@ -21,7 +21,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Estado: {TaskStatus} " +
                 $"- Área de desarrollo: {Area} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
-                $"- Fecha Límite: {CompletionDate} " +
+                $"- Fecha Límite: {ExpirationDate} " +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }

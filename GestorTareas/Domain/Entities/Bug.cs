@@ -28,7 +28,7 @@ namespace GestorDeTareas.Domain.Entities
             return $"[BUG] Título: {Title} " +
                 $"- Estado: {TaskStatus} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
-                $"- Fecha Límite: {CompletionDate} " +
+                $"- Fecha Límite: {ExpirationDate} " +
                 $"- Comportamiento actual: {ActualBehaviour} " +
                 $"{(ExpectedBehaviour != null ? $"- Comportamiento esperado: {ExpectedBehaviour} " : "")} " +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 public class TasksController : ControllerBase
 {
     private readonly TaskManagerContext _context;
@@ -12,7 +13,7 @@ public class TasksController : ControllerBase
     public IActionResult GetAll()
     {
         var tareas = _context.Tasks
-        .Include(t => t.Usuario)
+        .Include(t => t.User)
         .Select(t => new
         {
             t.Id,
@@ -31,7 +32,7 @@ public class TasksController : ControllerBase
     public IActionResult GetById(int id)
     {
         var tarea = _context.Tasks
-        .Include(t => t.Usuario)
+        .Include(t => t.User)
         .FirstOrDefault(t => t.Id == id);
 
         if (tarea == null)

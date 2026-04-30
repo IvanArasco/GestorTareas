@@ -15,6 +15,13 @@ builder.Configuration
 )
 );
 
+// 2. Repositorio — cuando alguien pida ITareaRepositorio
+// dar un TareaRepositorioEF
+builder.Services.AddScoped<ITareaRepositorio, TareaRepositorioEF>();
+
+// 3. Servicio
+builder.Services.AddScoped<GestorTareasService>();
+
 var app = builder.Build();
 
 // PARTE 2: configurar el pipeline de peticiones

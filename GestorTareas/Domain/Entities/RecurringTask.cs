@@ -23,7 +23,7 @@ namespace GestorDeTareas.Domain.Entities
                 ? nextExecution : throw new ArgumentException();
         }
 
-        public bool ValidateNextExecutionDate(DateTime nextExecution) => nextExecution > LastExecution && CompletionDate > nextExecution;
+        public bool ValidateNextExecutionDate(DateTime nextExecution) => nextExecution > LastExecution && ExpirationDate > nextExecution;
 
         public override string ToString()
         {
@@ -33,7 +33,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Próxima ejecución: {NextExecution} " +
                 $"{(LastExecution.HasValue ? $"- Última ejecución: {LastExecution} " : "")}" +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
-                $"- Fecha Límite: {CompletionDate} " +
+                $"- Fecha Límite: {ExpirationDate} " +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }
     }

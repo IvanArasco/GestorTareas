@@ -9,13 +9,14 @@ public class TaskManagerContext : DbContext
     public DbSet<Task> Tasks { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
+
         // Indicar a EF Core qué proveedor usar y cómo conectarse
         options.UseSqlServer(
-     @"Server=(localdb)\MSSQLLocalDB;" +
-     "Database=GestorTareas;" +
-     "Trusted_Connection=True;" +
-     "TrustServerCertificate=True;"
- );
+        @"Server=(localdb)\MSSQLLocalDB;" +
+        "Database=GestorTareas;" +
+        "Trusted_Connection=True;" +
+        "TrustServerCertificate=True;"
+        );
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

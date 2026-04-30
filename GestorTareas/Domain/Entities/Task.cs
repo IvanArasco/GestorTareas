@@ -10,7 +10,7 @@ namespace GestorDeTareas.Domain.Entities
         public Priority Priority { get; private set; }
         public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; private set; } = DateTime.Today;
-        public DateTime CompletionDate { get; private set; }
+        public DateTime ExpirationDate { get; private set; }
         public string? CancellationReason { get; private set; }
         public Task(string title, Priority taskPriority, DateTime completionDate, string? description = null)
         {
@@ -19,37 +19,44 @@ namespace GestorDeTareas.Domain.Entities
             Title = string.IsNullOrWhiteSpace(title)
                 ? throw new ArgumentException("El título no puede estar vacío") : title;
 
-            CompletionDate = completionDate < DateTime.Today
+            ExpirationDate = completionDate < DateTime.Today
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : completionDate;
 
             Priority = taskPriority;
              
             Description = description;
         }
-        public void Start() {
-            if (TaskStatus != Status.Pending || HasExpired())
-                throw new InvalidOperationException("Solo se puede iniciar una tarea pendiente o que no haya expirado.");
+        public void Start()
+        {
+            if (TaskStatus != Status.Pending)
+                throw new InvalidOperationException("La tarea debe estar pendiente para iniciarse.");
+            if (HasExpired())
+                throw new InvalidOperationException("No se puede iniciar una tarea expirada.");
+
             TaskStatus = Status.InProgress;
         }
-        public void Complete()
-        {
-            if (TaskStatus != Status.InProgress || HasExpired())
-                throw new InvalidOperationException("Solo se puede completar una tarea en proceso o que no haya expirado.");
-            TaskStatus = Status.Completed;
-        }
-
         public void Cancel(string reason)
         {
-            if (TaskStatus != Status.InProgress && TaskStatus != Status.Pending || HasExpired())
+            if ((TaskStatus != Status.InProgress && TaskStatus != Status.Pending) || HasExpired())
                 throw new InvalidOperationException("Solo se puede cancelar una tarea pendiente, en proceso o que no haya expirado.");
             TaskStatus = Status.Cancelled;
             CancellationReason = reason;
         }
-        public bool HasExpired() => CompletionDate < DateTime.Today 
+        public void Complete()
+        {
+            if (TaskStatus != Status.InProgress)
+                throw new InvalidOperationException("La tarea debe estar en progreso para completarse.");
+            if (HasExpired())
+                throw new InvalidOperationException("No se puede iniciar una tarea expirada.");
+
+            TaskStatus = Status.Completed;
+        }
+
+        public bool HasExpired() => ExpirationDate < DateTime.Today 
             && TaskStatus != Status.Completed 
             && TaskStatus != Status.Cancelled;
 
-        public int CalcRemainingDays() => HasExpired() ? 0 : (CompletionDate.Date - DateTime.Today).Days;
+        public int CalcRemainingDays() => HasExpired() ? 0 : (ExpirationDate.Date - DateTime.Today).Days;
         
         public void ChangePriority(Priority newPriority)
         {

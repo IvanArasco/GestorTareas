@@ -23,7 +23,7 @@ namespace GestorDeTareas.Domain.Entities
             return $"[MEJORA] Título : {Title} " +
                 $"- Estado: {TaskStatus} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
-                $"- Fecha Límite: {CompletionDate:dd/MM/yyyy} " +
+                $"- Fecha Límite: {ExpirationDate:dd/MM/yyyy} " +
                 $"- Característica afectada: {AffectedFeature} " +
                 $"{(ExpectedBenefict != null ? $"- Beneficio esperado: {ExpectedBenefict} " : "" )}" +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
