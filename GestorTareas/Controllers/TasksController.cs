@@ -1,6 +1,7 @@
-﻿using GestorDeTareas.Application.Dtos;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Task = GestorDeTareas.Domain.Entities.Task;
+
 public class TasksController : ControllerBase
 {
     private readonly TaskManagerContext _context;
@@ -8,7 +9,6 @@ public class TasksController : ControllerBase
     {
         _context = context;
     }
-
     // GET /api/tareas
     [HttpGet]
     public IActionResult GetAll()
@@ -50,13 +50,13 @@ public class TasksController : ControllerBase
 
     // PUT /api/tareas/1
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] TaskDto dto)
+    public IActionResult Update(int id, [FromBody] Task task)
     {
-        var task = _context.Tasks.Find(id);
+        var tasks = _context.Tasks.Find(id);
         if (task == null) return NotFound();
 
-        task.Title = dto.Title;
-        task.ExpirationDate = dto.ExpirationDate;
+        task.Title = tasks.Title;
+        task.ExpirationDate = tasks.ExpirationDate;
         _context.SaveChanges();
 
         return NoContent();

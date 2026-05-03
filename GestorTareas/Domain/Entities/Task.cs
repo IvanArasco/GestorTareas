@@ -14,6 +14,7 @@ namespace GestorDeTareas.Domain.Entities
         public string? CancellationReason { get; private set; }
         public int UserId { get; private set; }
         public User User { get; private set; }
+
         public Task(string title, Priority taskPriority, DateTime expirationDate, int userId, string? description = null)
         {
 
@@ -60,8 +61,8 @@ namespace GestorDeTareas.Domain.Entities
             TaskStatus = Status.Completed;
         }
 
-        public bool HasExpired() => ExpirationDate < DateTime.Today 
-            && TaskStatus != Status.Completed 
+        public bool HasExpired() => ExpirationDate < DateTime.Today
+            && TaskStatus != Status.Completed
             && TaskStatus != Status.Cancelled;
 
         public int CalcRemainingDays() => HasExpired() ? 0 : (ExpirationDate.Date - DateTime.Today).Days;

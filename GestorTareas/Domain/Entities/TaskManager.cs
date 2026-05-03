@@ -1,6 +1,4 @@
 ﻿using GestorDeTareas.Application.Dtos;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using GestorDeTareas.Domain.Enums;
 
 namespace GestorDeTareas.Domain.Entities
