@@ -12,7 +12,7 @@ namespace GestorDeTareas.Application.Services
 
         public List<User> GetAll() => _repository.GetAll();
         public User? GetById(int id) => _repository.GetUserById(id);
-        public User AddUser(string name, string email, DateOnly birthday, bool isAdmin)
+        public User Create(string name, string email, DateOnly birthday, bool isAdmin)
         {
             // Validation is done in User class
             var user = new User(name, email, birthday, isAdmin);

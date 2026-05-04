@@ -24,7 +24,7 @@ namespace GestorDeTareas.Domain.Entities
             ExpirationDate = expirationDate < DateTime.Today
                 ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : expirationDate;
 
-            UserId = userId;
+            UserId = userId <= 0 ? throw new ArgumentException("El ID de usuario no puede ser 0 o negativo") : userId;
 
             Priority = taskPriority;
              
