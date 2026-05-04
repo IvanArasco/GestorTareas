@@ -30,6 +30,14 @@ namespace GestorDeTareas.Domain.Entities
              
             Description = description;
         }
+        public void changeTitle(string newTitle)
+        {
+            Title = newTitle;
+        }
+        public void changeExpirationTime(DateTime newDate)
+        {
+            ExpirationDate = newDate;
+        }
         public void Start()
         {
             if (TaskStatus != Status.Pending)
@@ -73,6 +81,7 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
             Priority = newPriority;
         }
+  
         public abstract override string ToString();
     }
 }
