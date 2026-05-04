@@ -1,4 +1,5 @@
-﻿using GestorDeTareas.Application.Services;
+﻿using GestorDeTareas.Application.Dtos;
+using GestorDeTareas.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -46,12 +47,26 @@ public class TasksController : ControllerBase
         });
     }
 
+    // POST /api/tasks
+    [HttpPost]
+    public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
+    {
+        _taskService.Create(taskDto.Title, taskDto.TaskPriority, taskDto.ExpirationDate, taskDto.UserId, taskDto.DevelopmentArea);
+        return Ok(taskDto);
+    }
+
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        _taskService.Delete(id);
- 
-        return NoContent();
+        try
+        {
+            _taskService.Delete(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
     }
 }

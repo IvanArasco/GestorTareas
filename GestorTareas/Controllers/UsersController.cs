@@ -1,5 +1,5 @@
-﻿using GestorDeTareas.Application.Services;
-using GestorDeTareas.Domain.Entities;
+﻿using GestorDeTareas.Application.Dtos;
+using GestorDeTareas.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestorDeTareas.Controllers
@@ -52,19 +52,25 @@ namespace GestorDeTareas.Controllers
 
         // POST /api/users
         [HttpPost]
-        public IActionResult AddUser([FromBody] User user)
+        public IActionResult AddUser([FromBody] UserRequestDto userDto)
         {
-            _userService.AddUser(user);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+            _userService.Create(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
+            return Ok(userDto);
         }
 
         // DELETE /api/users/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userService.Delete(id);
-
-            return NoContent();
+            try
+            {
+                _userService.Delete(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }

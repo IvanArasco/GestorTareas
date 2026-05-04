@@ -14,6 +14,8 @@ namespace GestorDeTareas.Application.Dtos
         [Required]
         public DateTime ExpirationDate { get; set; }
         [Required]
+        public DevelopmentArea DevelopmentArea { get; set; }
+        [Required]
         public int UserId { get; set; }
     }
 }
