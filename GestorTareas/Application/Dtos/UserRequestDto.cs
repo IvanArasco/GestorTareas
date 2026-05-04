@@ -4,8 +4,6 @@ namespace GestorDeTareas.Application.Dtos
 {
     public class UserRequestDto
     {
-        // Nombre y Email obligatorios. Nombre máximo 100 caracteres.
-
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
         public string Name { get; set; } = string.Empty;

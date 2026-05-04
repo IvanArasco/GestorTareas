@@ -13,9 +13,6 @@ namespace GestorDeTareas.Application.Services
         public Task? GetById(int id) => _repository.GetTaskById(id);
         public Task Create(string title, Priority priority, DateTime expirationDate, int userId, DevelopmentArea developmentArea)
         {
-            // Validación de negocio — no pertenece al controller
-            if (string.IsNullOrWhiteSpace(title))
-                throw new ArgumentException("El título no puede estar vacío");
             var task = new NewFeature(title, priority, expirationDate, userId, developmentArea);
             _repository.AddTask(task);
             return task;

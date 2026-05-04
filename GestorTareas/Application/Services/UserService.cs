@@ -14,7 +14,6 @@ namespace GestorDeTareas.Application.Services
         public User? GetById(int id) => _repository.GetUserById(id);
         public User Create(string name, string email, DateOnly birthday, bool isAdmin)
         {
-            // Validation is done in User class
             var user = new User(name, email, birthday, isAdmin);
             _repository.AddUser(user);
             return user;
