@@ -7,18 +7,6 @@ public class TaskManagerContext : DbContext
     // Cada DbSet representa una tabla en la BD
     public DbSet<User> Users { get; set; }
     public DbSet<Task> Tasks { get; set; }
-   /* protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-
-        // Indicar a EF Core qué proveedor usar y cómo conectarse
-        options.UseSqlServer(
-        @"Server=(localdb)\MSSQLLocalDB;" +
-        "Database=GestorTareas;" +
-        "Trusted_Connection=True;" +
-        "TrustServerCertificate=True;"
-        );
-    }
-   */
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configurar el discriminador TPH

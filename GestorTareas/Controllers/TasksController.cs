@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Task = GestorDeTareas.Domain.Entities.Task;
+﻿using GestorDeTareas.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/tasks")]
 public class TasksController : ControllerBase
 {
-    private readonly TaskContext _context;
-    public TasksController(TaskContext context)
+    private readonly TaskService _taskService;
+    public TasksController(TaskService taskService)
     {
-        _context = context;
+        _taskService = taskService;
     }
 
     // GET /api/tasks
     [HttpGet]
     public IActionResult GetAll()
     {
-        var tasks = _context.Tasks
-            .Include(t => t.User)
+        var tasks = _taskService.GetAll()
             .Select(t => new
             {
                 t.Id,
@@ -34,9 +32,7 @@ public class TasksController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var task = _context.Tasks
-            .Include(t => t.User)
-            .FirstOrDefault(t => t.Id == id);
+        var task = _taskService.GetById(id);
 
         if (task == null)
             return NotFound();
@@ -50,32 +46,12 @@ public class TasksController : ControllerBase
         });
     }
 
-    // PUT /api/tasks/{id}
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Task task)
-    {
-        var existingTask = _context.Tasks.Find(id);
-        if (existingTask == null)
-            return NotFound();
-
-        existingTask.Title = task.Title;
-        existingTask.ExpirationDate = task.ExpirationDate;
-        _context.SaveChanges();
-
-        return NoContent();
-    }
-
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var task = _context.Tasks.Find(id);
-        if (task == null)
-            return NotFound();
-
-        _context.Tasks.Remove(task);
-        _context.SaveChanges();
-
+        _taskService.Delete(id);
+ 
         return NoContent();
     }
 }

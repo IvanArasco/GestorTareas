@@ -1,6 +1,6 @@
-﻿using GestorDeTareas.Domain.Entities;
+﻿using GestorDeTareas.Application.Services;
+using GestorDeTareas.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestorDeTareas.Controllers
 {
@@ -8,19 +8,18 @@ namespace GestorDeTareas.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly TaskContext _context;
+        private readonly UserService _userService;
 
-        public UsersController(TaskContext context)
+        public UsersController(UserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         // GET /api/users
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _context.Users
-                .Include(u => u.Tasks)
+            var users = _userService.GetAll()
                 .Select(u => new
                 {
                     u.Id,
@@ -37,9 +36,7 @@ namespace GestorDeTareas.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user = _context.Users
-                .Include(u => u.Tasks)
-                .FirstOrDefault(u => u.Id == id);
+            var user = _userService.GetById(id);
 
             if (user == null)
                 return NotFound();
@@ -55,10 +52,9 @@ namespace GestorDeTareas.Controllers
 
         // POST /api/users
         [HttpPost]
-        public IActionResult Create([FromBody] User user)
+        public IActionResult AddUser([FromBody] User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            _userService.AddUser(user);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
@@ -66,13 +62,8 @@ namespace GestorDeTareas.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            _userService.Delete(id);
 
-            if (user == null)
-                return NotFound();
-
-            _context.Users.Remove(user);
-            _context.SaveChanges();
             return NoContent();
         }
     }
