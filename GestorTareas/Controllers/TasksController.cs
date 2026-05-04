@@ -49,6 +49,7 @@ public class TasksController : ControllerBase
     }
 
     // PUT /api/tareas/1
+    /*
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] Task task)
     {
@@ -61,6 +62,7 @@ public class TasksController : ControllerBase
 
         return NoContent();
     }
+    */
 
     // DELETE /api/tareas/1
     [HttpDelete("{id}")]
