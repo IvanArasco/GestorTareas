@@ -1,4 +1,5 @@
-﻿using GestorDeTareas.Domain.Entities;
+﻿using GestorDeTareas.Application.Dtos;
+using GestorDeTareas.Domain.Entities;
 using GestorDeTareas.Domain.Enums;
 using GestorDeTareas.Infrastructure.Repositories;
 
@@ -12,11 +13,18 @@ namespace GestorDeTareas.Application.Services
 
         public List<User> GetAll() => _repository.GetAll();
         public User? GetById(int id) => _repository.GetUserById(id);
-        public User Create(string name, string email, DateOnly birthday, bool isAdmin)
+        public UserResponseDto Create(string name, string email, DateOnly birthday, bool isAdmin)
         {
             var user = new User(name, email, birthday, isAdmin);
             _repository.AddUser(user);
-            return user;
+
+            return new UserResponseDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                IsAdmin = user.IsAdmin
+            };
         }
         public void Delete(int id)
         {

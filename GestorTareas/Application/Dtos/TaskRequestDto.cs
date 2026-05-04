@@ -16,6 +16,8 @@ namespace GestorDeTareas.Application.Dtos
         [Required]
         public DevelopmentArea DevelopmentArea { get; set; }
         [Required]
+        public string TipoTarea { get; set; } = string.Empty;
+        [Required]
         public int UserId { get; set; }
     }
 }

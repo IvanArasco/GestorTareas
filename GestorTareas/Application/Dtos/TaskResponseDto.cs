@@ -9,5 +9,6 @@ namespace GestorDeTareas.Application.Dtos
         public Status TaskStatus { get; set; } = Status.Pending;
         public Priority TaskPriority { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public string User { get; set; } = string.Empty;
     }
 }

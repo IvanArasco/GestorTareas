@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using GestorDeTareas.Application.Services;
+using GestorDeTareas.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestorDeTareas.Controllers
@@ -54,8 +55,8 @@ namespace GestorDeTareas.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] UserRequestDto userDto)
         {
-            _userService.Create(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
-            return Ok(userDto);
+            var user = _userService.Create(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
+            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
         // DELETE /api/users/{id}
