@@ -20,9 +20,9 @@ namespace TestGestorTareas
             // 1. ARRANGE
             int tasksAtStart = _sut.GetTasks().Count();
 
-            var t1 = new TaskDto("Tarea Test 1", Priority.High, DateTime.Today.AddDays(1));
-            var t2 = new TaskDto("Tarea Test 2", Priority.Low, DateTime.Today.AddDays(5));
-            var t3 = new TaskDto("Tarea Test 3", Priority.Critical, DateTime.Today.AddDays(2));
+            var t1 = new TaskRequestDto("Tarea Test 1", Priority.High, DateTime.Today.AddDays(1));
+            var t2 = new TaskRequestDto("Tarea Test 2", Priority.Low, DateTime.Today.AddDays(5));
+            var t3 = new TaskRequestDto("Tarea Test 3", Priority.Critical, DateTime.Today.AddDays(2));
 
             // 2. ACT
             _sut.AddTask(t1);
@@ -49,7 +49,7 @@ namespace TestGestorTareas
         {
 
             // Arrange
-            TaskDto t1 = new TaskDto("Titulo Test 001", Priority.Low, DateTime.Today.AddDays(1));
+            TaskRequestDto t1 = new TaskRequestDto("Titulo Test 001", Priority.Low, DateTime.Today.AddDays(1));
             _sut.AddTask(t1);
 
             // Act

@@ -2,7 +2,7 @@
 
 namespace GestorDeTareas.Application.Dtos
 {
-    public class CreateUserDto
+    public class UserRequestDto
     {
         // Nombre y Email obligatorios. Nombre máximo 100 caracteres.
 
@@ -13,5 +13,9 @@ namespace GestorDeTareas.Application.Dtos
         [Required(ErrorMessage = "El email es obligatorio")]
         [EmailAddress(ErrorMessage = "El email no tiene un formato válido")]
         public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public DateOnly Birthday { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
