@@ -2,76 +2,78 @@
 using Microsoft.EntityFrameworkCore;
 using Task = GestorDeTareas.Domain.Entities.Task;
 
+[ApiController]
+[Route("api/tasks")]
 public class TasksController : ControllerBase
 {
-    private readonly TaskManagerContext _context;
-    public TasksController(TaskManagerContext context)
+    private readonly TaskContext _context;
+    public TasksController(TaskContext context)
     {
         _context = context;
     }
-    // GET /api/tareas
+
+    // GET /api/tasks
     [HttpGet]
     public IActionResult GetAll()
     {
-
         var tasks = _context.Tasks
-        .Include(t => t.User)
-        .Select(t => new
-        {
-            t.Id,
-            t.Title,
-            t.ExpirationDate,
-            User = t.User.Name
-        })
-        .ToList();
+            .Include(t => t.User)
+            .Select(t => new
+            {
+                t.Id,
+                t.Title,
+                t.ExpirationDate,
+                User = t.User.Name
+            })
+            .ToList();
 
         return Ok(tasks);
     }
 
-    // GET /api/tareas/1
+    // GET /api/tasks/{id}
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var tasks = _context.Tasks
-        .Include(t => t.User)
-        .FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks
+            .Include(t => t.User)
+            .FirstOrDefault(t => t.Id == id);
 
-        if (tasks == null)
+        if (task == null)
             return NotFound();
 
         return Ok(new
         {
-            tasks.Id,
-            tasks.Title,
-            tasks.ExpirationDate,
-            Usuario = tasks.User.Name
+            task.Id,
+            task.Title,
+            task.ExpirationDate,
+            User = task.User.Name
         });
     }
 
-    // PUT /api/tareas/1
-    /*
+    // PUT /api/tasks/{id}
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] Task task)
     {
-        var tasks = _context.Tasks.Find(id);
-        if (task == null) return NotFound();
+        var existingTask = _context.Tasks.Find(id);
+        if (existingTask == null)
+            return NotFound();
 
-        task.Title = tasks.Title;
-        task.ExpirationDate = tasks.ExpirationDate;
+        existingTask.Title = task.Title;
+        existingTask.ExpirationDate = task.ExpirationDate;
         _context.SaveChanges();
 
         return NoContent();
     }
-    */
 
-    // DELETE /api/tareas/1
+    // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var tarea = _context.Tasks.Find(id);
-        if (tarea == null) return NotFound();
+        var task = _context.Tasks.Find(id);
+        if (task == null)
+            return NotFound();
 
-        _context.Tasks.Remove(tarea);
+        _context.Tasks.Remove(task);
         _context.SaveChanges();
 
         return NoContent();

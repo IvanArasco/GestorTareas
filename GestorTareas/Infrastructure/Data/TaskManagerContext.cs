@@ -7,7 +7,7 @@ public class TaskManagerContext : DbContext
     // Cada DbSet representa una tabla en la BD
     public DbSet<User> Users { get; set; }
     public DbSet<Task> Tasks { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
+   /* protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
 
         // Indicar a EF Core qué proveedor usar y cómo conectarse
@@ -18,6 +18,7 @@ public class TaskManagerContext : DbContext
         "TrustServerCertificate=True;"
         );
     }
+   */
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configurar el discriminador TPH

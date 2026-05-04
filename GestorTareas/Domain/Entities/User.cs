@@ -10,6 +10,7 @@ namespace GestorDeTareas.Domain.Entities
         public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
         public ICollection<Task> Tasks { get; private set; } = new List<Task>();
+
         public User(string name, string email, DateOnly birthdate, bool isAdmin)
         {
 

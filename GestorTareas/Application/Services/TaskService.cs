@@ -5,10 +5,10 @@ using Task = GestorDeTareas.Domain.Entities.Task;
 
 namespace GestorDeTareas.Application.Services
 {
-    public class TaskManagerService
+    public class TaskService
     {
         private readonly ITaskRepository _repository;
-        public TaskManagerService(ITaskRepository repositorio) => _repository = repositorio;
+        public TaskService(ITaskRepository repositorio) => _repository = repositorio;
         public List<Task> GetAll() => _repository.GetAll();
         public Task? GetById(int id) => _repository.GetTaskById(id);
         public Task Create(string title, Priority priority, DateTime expirationDate, int userId, DevelopmentArea developmentArea)

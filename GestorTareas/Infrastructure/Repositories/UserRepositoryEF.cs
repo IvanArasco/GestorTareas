@@ -2,10 +2,10 @@
 
 namespace GestorDeTareas.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepositoryEF : IUserRepository
     {
         private readonly TaskManagerContext _context;
-        public UserRepository(TaskManagerContext context) => _context = context;
+        public UserRepositoryEF(TaskManagerContext context) => _context = context;
 
         public List<User> GetAll() => _context.Users.ToList();
 

@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<TaskManagerContext>
+builder.Services.AddDbContext<TaskContext>
 (options =>
 options.UseSqlServer(
 builder.Configuration
@@ -17,12 +17,13 @@ builder.Configuration
 )
 );
 
-// 2. Repositorio — cuando alguien pida ITareaRepositorio
-// dar un TareaRepositorioEF
+// 2. Repositorios
 builder.Services.AddScoped<ITaskRepository, TaskRepositoryEF>();
+builder.Services.AddScoped<IUserRepository, UserRepositoryEF>();
 
-// 3. Servicio
-builder.Services.AddScoped<TaskManagerService>();
+// 3. Servicios
+builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
