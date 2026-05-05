@@ -24,8 +24,8 @@ namespace GestorDeTareas.Domain.Entities
                 ? nextExecution : throw new ArgumentException();
         }
 
-        public bool ValidateNextExecutionDate(DateTime nextExecution) => nextExecution > LastExecution && ExpirationDate > nextExecution;
-
+        public bool ValidateNextExecutionDate(DateTime nextExecution) => (
+            !LastExecution.HasValue || nextExecution > LastExecution) && ExpirationDate > nextExecution;
         public override string ToString()
         {
             return $"[RECURRENTE] Título : {Title} " +

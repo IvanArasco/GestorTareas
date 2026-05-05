@@ -4,6 +4,9 @@ using Task = GestorDeTareas.Domain.Entities.Task;
 
 public class TaskManagerContext : DbContext
 {
+    public TaskManagerContext(DbContextOptions<TaskManagerContext> options)
+     : base(options) { }
+
     // Cada DbSet representa una tabla en la BD
     public DbSet<User> Users { get; set; }
     public DbSet<Task> Tasks { get; set; }

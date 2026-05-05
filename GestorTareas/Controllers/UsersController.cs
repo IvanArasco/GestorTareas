@@ -46,11 +46,11 @@ namespace GestorDeTareas.Controllers
 
         // PUT /api/users/{id}
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] UserRequestDto dto)
+        public IActionResult Update(int id, [FromBody] UserRequestDto userDto)
         {
             try
             {
-                _userService.Update(id, dto);
+                _userService.Update(id, userDto);
                 return NoContent();
             }
             catch (KeyNotFoundException)
