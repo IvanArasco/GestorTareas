@@ -38,6 +38,7 @@ namespace GestorDeTareas.Application.Services
                 User = task.User?.Name ?? "Sin asignar"
             };
         }
+
         /* TO DO : DTO FOR EACH CHILD CLASS ???
          * 
         public TaskResponseDto Create(string title, Priority priority, DateTime expirationDate, int userId, DevelopmentArea developmentArea)
@@ -62,7 +63,6 @@ namespace GestorDeTareas.Application.Services
             task.Start();
             _repository.Update(task);
         }
-
         public void Complete(int id)
         {
             var task = _repository.GetTaskById(id)

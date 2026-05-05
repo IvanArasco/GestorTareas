@@ -480,4 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-/ConsoleApp1/GestorTareas.csproj
+
+#Application settings Files 
+GestorTareas/Presentation/appsettings.Development.json
+GestorTareas/Presentation/appsettings.Production.json
