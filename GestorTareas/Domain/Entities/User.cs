@@ -14,16 +14,24 @@ namespace GestorDeTareas.Domain.Entities
         {
 
             Name = string.IsNullOrWhiteSpace(name)
-            ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
-            : name;
-            Email = !ValidarEmail(email) ? throw new InvalidOperationException("Email no válido.") : email;
-            Birthdate = birthdate;
+                ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
+                : name;
+            Email = !VerifyEmail(email) 
+                ? throw new InvalidOperationException("Email no válido.") 
+                : email;
+            Birthdate = !VerifyBirthdate(birthdate)
+                ? throw new ArgumentException("La fecha de nacimiento no puede ser futura.")
+                : birthdate;
             IsAdmin = isAdmin;
         }
-        private static bool ValidarEmail(string email)
+        public bool VerifyEmail(string email)
         {
             if (string.IsNullOrEmpty(email)) return false;
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+        }
+        public bool VerifyBirthdate(DateOnly birthdate)
+        {
+            return birthdate <= DateOnly.FromDateTime(DateTime.Today);
         }
 
         public void ChangeName(string newName)
@@ -35,14 +43,16 @@ namespace GestorDeTareas.Domain.Entities
 
         public void ChangeEmail(string newEmail)
         {
-            Email = !ValidarEmail(newEmail)
+            Email = !VerifyEmail(newEmail)
                 ? throw new InvalidOperationException("Email no válido.")
                 : newEmail;
         }
 
         public void ChangeBirthdate(DateOnly newBirthdate)
         {
-            Birthdate = newBirthdate;
+            Birthdate = !VerifyBirthdate(newBirthdate)
+                ? throw new InvalidOperationException("Fecha no válida. No puede superar la de hoy.")
+                : newBirthdate;
         }
 
         public void ChangeIsAdmin(bool isAdmin)
