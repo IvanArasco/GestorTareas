@@ -56,8 +56,6 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("No se puede cancelar una tarea expirada.");
             if (TaskStatus == Status.Cancelled)
                 throw new InvalidOperationException("No se puede iniciar una tarea cancelada.");
-            if (string.IsNullOrWhiteSpace(reason))
-                throw new ArgumentException("El motivo de cancelación no puede estar vacío.", nameof(reason));
 
             TaskStatus = Status.Cancelled;
             CancellationReason = reason;
@@ -85,6 +83,13 @@ namespace GestorDeTareas.Domain.Entities
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
             Priority = newPriority;
+        }
+
+        public void ChangeUser(int newUserId)
+        {
+            UserId = newUserId < 0 
+                ? throw new ArgumentException("El ID de usuario no puede ser negativo") 
+                : newUserId;
         }
   
         public abstract override string ToString();
