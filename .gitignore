@@ -482,5 +482,6 @@ $RECYCLE.BIN/
 *.swp
 
 #Application settings Files 
+GestorTareas/Presentation/appsettings.json
 GestorTareas/Presentation/appsettings.Development.json
 GestorTareas/Presentation/appsettings.Production.json
