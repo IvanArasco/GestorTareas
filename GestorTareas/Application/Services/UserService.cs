@@ -1,6 +1,5 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using GestorDeTareas.Domain.Entities;
-using GestorDeTareas.Domain.Enums;
 using GestorDeTareas.Infrastructure.Repositories;
 
 namespace GestorDeTareas.Application.Services

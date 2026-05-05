@@ -20,15 +20,7 @@ namespace GestorDeTareas.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll()
-                .Select(u => new
-                {
-                    u.Id,
-                    u.Name,
-                    u.Email,
-                    Tasks = u.Tasks
-                })
-                .ToList();
+            var users = _userService.GetAll();
 
             return Ok(users);
         }
@@ -42,13 +34,7 @@ namespace GestorDeTareas.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new
-            {
-                user.Id,
-                user.Name,
-                user.Email,
-                Tasks = user.Tasks.ToList()
-            });
+            return Ok(user);
         }
 
         // POST /api/users

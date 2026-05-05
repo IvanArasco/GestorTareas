@@ -16,15 +16,7 @@ public class TasksController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var tasks = _taskService.GetAll()
-            .Select(t => new
-            {
-                t.Id,
-                t.Title,
-                t.ExpirationDate,
-                User = t.User.Name
-            })
-            .ToList();
+        var tasks = _taskService.GetAll();
 
         return Ok(tasks);
     }
@@ -38,13 +30,7 @@ public class TasksController : ControllerBase
         if (task == null)
             return NotFound();
 
-        return Ok(new
-        {
-            task.Id,
-            task.Title,
-            task.ExpirationDate,
-            User = task.User.Name
-        });
+        return Ok(task);
     }
 
     /* TO DO : DTO FOR EACH CHILD CLASS ???

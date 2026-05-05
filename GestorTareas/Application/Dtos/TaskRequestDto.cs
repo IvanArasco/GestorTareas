@@ -8,7 +8,7 @@ namespace GestorDeTareas.Application.Dtos
     {
         [Required(ErrorMessage = "El título es obligatorio")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         [Required]
         public Priority TaskPriority { get; set; }
         [Required]

@@ -16,7 +16,7 @@ namespace GestorDeTareas.Domain.Entities
             Name = string.IsNullOrWhiteSpace(name)
             ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
             : name;
-            Email = ValidarEmail(email) ? email : throw new InvalidOperationException("Error creando el mail");
+            Email = !ValidarEmail(email) ? throw new InvalidOperationException("Error creando el mail") : email;
             Birthdate = birthdate;
             IsAdmin = isAdmin;
         }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// PARTE 1: registrar servicios
+// PARTE 1: Registrar servicios
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,17 +17,17 @@ builder.Configuration
 )
 );
 
-// 2. Repositorios
+// PARTE 2. Registrar Repositorios
 builder.Services.AddScoped<ITaskRepository, TaskRepositoryEF>();
 builder.Services.AddScoped<IUserRepository, UserRepositoryEF>();
 
-// 3. Servicios
+// PARTE 3. Registrar Servicios
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
-// PARTE 2: configurar el pipeline de peticiones
+// PARTE 4: Configurar el pipeline de peticiones
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
