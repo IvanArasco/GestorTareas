@@ -1,6 +1,6 @@
 ﻿using GestorDeTareas.Domain.Entities;
-using Task = GestorDeTareas.Domain.Entities.Task;
 using Microsoft.EntityFrameworkCore;
+using Task = GestorDeTareas.Domain.Entities.Task;
 
 public class TaskManagerContext : DbContext
 {

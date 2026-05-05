@@ -9,7 +9,7 @@ namespace GestorDeTareas.Application.Services
     {
         private readonly ITaskRepository _repository;
         public TaskService(ITaskRepository repository) => _repository = repository;
-        public List<TaskResponseDto> GetAll()
+        public List<TaskResponseDto> GetAll() // Mapear para el DTO
         {
             return _repository.GetAll()
                 .Select(t => new TaskResponseDto
@@ -23,12 +23,12 @@ namespace GestorDeTareas.Application.Services
                 })
                 .ToList();
         }
-        public TaskResponseDto? GetById(int id)
+        public TaskResponseDto? GetById(int id) // Mapear para el DTO
         {
             var task = _repository.GetTaskById(id);
             if (task == null) return null;
 
-            return new TaskResponseDto
+            return new TaskResponseDto 
             {
                 Id = task.Id,
                 Title = task.Title,

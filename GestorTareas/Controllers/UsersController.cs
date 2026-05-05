@@ -1,6 +1,5 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using GestorDeTareas.Application.Services;
-using GestorDeTareas.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestorDeTareas.Controllers
