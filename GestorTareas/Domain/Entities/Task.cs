@@ -44,7 +44,8 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("La tarea debe estar pendiente para iniciarse.");
             if (HasExpired())
                 throw new InvalidOperationException("No se puede iniciar una tarea expirada.");
-
+            if (TaskStatus == Status.InProgress)
+                throw new InvalidOperationException("No se puede iniciar una tarea iniciada.");
             TaskStatus = Status.InProgress;
         }
         public void Cancel(string reason)
@@ -53,6 +54,8 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("No se puede cancelar una tarea ya completada o cancelada.");
             if (HasExpired())
                 throw new InvalidOperationException("No se puede cancelar una tarea expirada.");
+            if (TaskStatus == Status.Cancelled)
+                throw new InvalidOperationException("No se puede iniciar una tarea cancelada.");
             if (string.IsNullOrWhiteSpace(reason))
                 throw new ArgumentException("El motivo de cancelación no puede estar vacío.", nameof(reason));
 
@@ -65,6 +68,8 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("La tarea debe estar en progreso para completarse.");
             if (HasExpired())
                 throw new InvalidOperationException("No se puede completar una tarea expirada.");
+            if (TaskStatus == Status.Completed)
+                throw new InvalidOperationException("No se puede iniciar una tarea completada.");
 
             TaskStatus = Status.Completed;
         }

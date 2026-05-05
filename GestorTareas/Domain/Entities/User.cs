@@ -16,7 +16,7 @@ namespace GestorDeTareas.Domain.Entities
             Name = string.IsNullOrWhiteSpace(name)
             ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
             : name;
-            Email = !ValidarEmail(email) ? throw new InvalidOperationException("Error creando el mail") : email;
+            Email = !ValidarEmail(email) ? throw new InvalidOperationException("Email no válido.") : email;
             Birthdate = birthdate;
             IsAdmin = isAdmin;
         }
@@ -25,6 +25,31 @@ namespace GestorDeTareas.Domain.Entities
             if (string.IsNullOrEmpty(email)) return false;
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
         }
+
+        public void ChangeName(string newName)
+        {
+            Name = string.IsNullOrWhiteSpace(newName)
+                ? throw new ArgumentException("El nombre no puede estar vacío.")
+                : newName;
+        }
+
+        public void ChangeEmail(string newEmail)
+        {
+            Email = !ValidarEmail(newEmail)
+                ? throw new InvalidOperationException("Email no válido.")
+                : newEmail;
+        }
+
+        public void ChangeBirthdate(DateOnly newBirthdate)
+        {
+            Birthdate = newBirthdate;
+        }
+
+        public void ChangeIsAdmin(bool isAdmin)
+        {
+            IsAdmin = isAdmin;
+        }
+
         public override string ToString()
         {
             return $"[USER] Nombre : {Name} - Email: {Email} - Fecha Nacimiento: {Birthdate} - {(IsAdmin ? "Es admin" : "No es admin")}";

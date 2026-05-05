@@ -44,6 +44,21 @@ namespace GestorDeTareas.Controllers
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
+        // PUT /api/users/{id}
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] UserRequestDto dto)
+        {
+            try
+            {
+                _userService.Update(id, dto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
         // DELETE /api/users/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

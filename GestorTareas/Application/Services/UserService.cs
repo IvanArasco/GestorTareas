@@ -25,6 +25,19 @@ namespace GestorDeTareas.Application.Services
                 IsAdmin = user.IsAdmin
             };
         }
+        public void Update(int id, UserRequestDto dto)
+        {
+            var user = _repository.GetUserById(id)
+                ?? throw new KeyNotFoundException($"No existe el usuario con Id {id}");
+
+            user.ChangeName(dto.Name);
+            user.ChangeEmail(dto.Email);
+            user.ChangeBirthdate(dto.Birthday);
+            user.ChangeIsAdmin(dto.IsAdmin);
+
+            _repository.Update(user);
+        }
+
         public void Delete(int id)
         {
             var user = _repository.GetUserById(id)
