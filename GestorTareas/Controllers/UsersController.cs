@@ -1,6 +1,8 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using GestorDeTareas.Application.Services;
+using GestorDeTareas.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestorDeTareas.Controllers
 {
@@ -23,6 +25,10 @@ namespace GestorDeTareas.Controllers
 
             return Ok(users);
         }
+
+        // GET /api/users/tasks
+        [HttpGet]
+        public List<User> GetAll() => _context.Users.Include(u => u.Tasks).ToList();
 
         // GET /api/users/{id}
         [HttpGet("{id}")]

@@ -9,7 +9,7 @@ namespace GestorDeTareas.Infrastructure.Repositories
 
         public List<User> GetAll() => _context.Users.ToList();
 
-        public User? GetUserById(int id) => _context.Users.FirstOrDefault(u => id == u.Id);
+        public User? GetUserById(int id) => _context.Users.FirstOrDefault(u => u.Id == id);
 
         public void AddUser(User user)
         {
