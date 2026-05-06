@@ -1,5 +1,4 @@
-﻿using GestorDeTareas.Application.Dtos;
-using GestorDeTareas.Domain.Entities;
+﻿using GestorDeTareas.Domain.Entities;
 using GestorDeTareas.Domain.Enums;
 using Task = GestorDeTareas.Domain.Entities.Task;
 

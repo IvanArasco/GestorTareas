@@ -4,11 +4,11 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class Improvement : Task
     {
-        public string AffectedFeature { get; private set; }
+        public string? AffectedFeature { get; private set; }
         public string? ExpectedBenefict { get; private set; }
         public Improvement(
             string title,
-            string affectedFeature,
+            string? affectedFeature,
             string? expectedBenefict,
             Priority priority,
             DateTime expirationDate,
@@ -25,7 +25,7 @@ namespace GestorDeTareas.Domain.Entities
                 $"- Estado: {TaskStatus} " +
                 $"- Fecha Creación: {CreationDate:dd/MM/yyyy} " +
                 $"- Fecha Límite: {ExpirationDate:dd/MM/yyyy} " +
-                $"- Característica afectada: {AffectedFeature} " +
+                $"{(AffectedFeature != null ? $"- Característica afectada: {AffectedFeature} " : "")}" +
                 $"{(ExpectedBenefict != null ? $"- Beneficio esperado: {ExpectedBenefict} " : "" )}" +
                 $"{(Description != null ? $"- Descripción: {Description}" : "")}";
         }

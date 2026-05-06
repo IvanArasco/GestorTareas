@@ -1,6 +1,4 @@
-﻿using GestorDeTareas.Application.Dtos;
-using GestorDeTareas.Domain.Entities;
-using GestorDeTareas.Domain.Enums;
+﻿using GestorDeTareas.Domain.Entities;
 
 namespace TestsGestorTareas
 {

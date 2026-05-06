@@ -14,7 +14,6 @@ namespace GestorDeTareas.Domain.Entities
         public string? CancellationReason { get; private set; }
         public int UserId { get; private set; }
         public User User { get; private set; }
-
         public Task(string title, Priority taskPriority, DateTime expirationDate, int userId, string? description = null)
         {
 
@@ -30,13 +29,19 @@ namespace GestorDeTareas.Domain.Entities
              
             Description = description;
         }
-        public void changeTitle(string newTitle)
+        public void ChangeTitle(string newTitle)
         {
             Title = newTitle;
         }
-        public void changeExpirationTime(DateTime newDate)
+        public void ChangeExpirationTime(DateTime newDate)
         {
             ExpirationDate = newDate;
+        }
+        public void ChangeUserId(int newUserId)
+        {
+            UserId = newUserId < 0
+                ? throw new ArgumentException("El ID de usuario no puede ser negativo")
+                : newUserId;
         }
         public void Start()
         {
@@ -84,14 +89,6 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
             Priority = newPriority;
         }
-
-        public void ChangeUser(int newUserId)
-        {
-            UserId = newUserId < 0 
-                ? throw new ArgumentException("El ID de usuario no puede ser negativo") 
-                : newUserId;
-        }
-  
         public abstract override string ToString();
     }
 }

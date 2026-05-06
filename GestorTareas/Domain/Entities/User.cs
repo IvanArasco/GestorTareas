@@ -16,8 +16,8 @@ namespace GestorDeTareas.Domain.Entities
             Name = string.IsNullOrWhiteSpace(name)
                 ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
                 : name;
-            Email = !VerifyEmail(email) 
-                ? throw new InvalidOperationException("Email no válido.") 
+            Email = !VerifyEmail(email)
+                ? throw new InvalidOperationException("Email no válido.")
                 : email;
             Birthdate = !VerifyBirthdate(birthdate)
                 ? throw new ArgumentException("La fecha de nacimiento no puede ser futura.")
@@ -33,7 +33,6 @@ namespace GestorDeTareas.Domain.Entities
         {
             return birthdate <= DateOnly.FromDateTime(DateTime.Today);
         }
-
         public void ChangeName(string newName)
         {
             Name = string.IsNullOrWhiteSpace(newName)
@@ -54,7 +53,6 @@ namespace GestorDeTareas.Domain.Entities
                 ? throw new InvalidOperationException("Fecha no válida. No puede superar la de hoy.")
                 : newBirthdate;
         }
-
         public void ChangeIsAdmin(bool isAdmin)
         {
             IsAdmin = isAdmin;
