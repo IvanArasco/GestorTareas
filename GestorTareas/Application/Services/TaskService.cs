@@ -68,7 +68,7 @@ namespace GestorDeTareas.Application.Services
                 _ => throw new ArgumentException("Tipo de tarea no válido.")
             };
 
-            _repository.AddTask(task); // en este punto mandamos la entidad, que ha sido mapeada para subirla a la BD.
+            _repository.AddTask(task);
 
             return MapToResponseTaskDto(task);
         }

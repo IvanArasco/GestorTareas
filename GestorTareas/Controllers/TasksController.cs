@@ -37,8 +37,8 @@ public class TasksController : ControllerBase
     [HttpPost]
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
     {
-        _taskService.Create(taskDto.Title, taskDto.TaskPriority, taskDto.ExpirationDate, taskDto.UserId);
-        return Ok(taskDto);
+        var response = _taskService.Create(taskDto);
+        return Ok(response);
     }
 
     // DELETE /api/tasks/{id}

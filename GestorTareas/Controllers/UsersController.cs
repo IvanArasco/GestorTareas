@@ -48,7 +48,7 @@ namespace GestorDeTareas.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] UserRequestDto userDto)
         {
-            var user = _userService.Create(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
+            var user = _userService.Create(userDto);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
