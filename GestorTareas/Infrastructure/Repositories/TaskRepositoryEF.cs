@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GestorDeTareas.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Task = GestorDeTareas.Domain.Entities.Task;
 
 namespace GestorDeTareas.Infrastructure.Repositories
@@ -11,7 +12,7 @@ namespace GestorDeTareas.Infrastructure.Repositories
         => _context = context;
 
         public List<Task> GetAll() => _context.Tasks.Include(t => t.User).ToList();
-
+        
         public Task? GetTaskById(int id) => _context.Tasks.Include(t => t.User).FirstOrDefault(t => t.Id == id);
 
         public void AddTask(Task task)

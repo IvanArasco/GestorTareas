@@ -9,6 +9,7 @@ namespace GestorDeTareas.Application.Dtos
         [Required(ErrorMessage = "El título es obligatorio")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
         public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         [Required]
         public Priority TaskPriority { get; set; }
         [Required]
@@ -16,24 +17,24 @@ namespace GestorDeTareas.Application.Dtos
         [Required]
         public DevelopmentArea DevelopmentArea { get; set; }
         [Required]
-        public string TipoTarea { get; set; } = string.Empty;
+        public string TaskType { get; set; } = string.Empty;
         [Required]
         public int UserId { get; set; }
 
         // Bug fields
-        public string? ExpectedBehaviour { get; private set; }
-        public string? ActualBehaviour { get; private set; }
+        public string? ExpectedBehaviour { get; set; }
+        public string? ActualBehaviour { get; set; }
 
         // Improvement fields
-        public string? AffectedFeature { get; private set; }
-        public string? ExpectedBenefict { get; private set; }
+        public string? AffectedFeature { get; set; }
+        public string? ExpectedBenefict { get; set; }
 
         // New feature fields
-        public DevelopmentArea? Area { get; private set; }
+        public DevelopmentArea? Area { get; set; }
 
         // RecurringTask fields
-        public Frequency? Frequency { get; private set; }
-        public DateTime? LastExecution { get; private set; }
-        public DateTime? NextExecution { get; private set; }
+        public Frequency? Frequency { get; set; }
+        public DateTime? LastExecution { get; set; }
+        public DateTime? NextExecution { get; set; }
     }
 }

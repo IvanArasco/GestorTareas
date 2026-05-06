@@ -33,16 +33,13 @@ public class TasksController : ControllerBase
         return Ok(task);
     }
 
-    /* TO DO : DTO FOR EACH CHILD CLASS ???
-     * 
-     * POST /api/tasks
+    //POST /api/tasks
     [HttpPost]
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
     {
-        _taskService.Create(taskDto.Title, taskDto.TaskPriority, taskDto.ExpirationDate, taskDto.UserId, taskDto.DevelopmentArea);
+        _taskService.Create(taskDto.Title, taskDto.TaskPriority, taskDto.ExpirationDate, taskDto.UserId);
         return Ok(taskDto);
     }
-    */
 
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]

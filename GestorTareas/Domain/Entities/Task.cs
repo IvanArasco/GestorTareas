@@ -7,7 +7,7 @@ namespace GestorDeTareas.Domain.Entities
         public int Id { get; init; }
         public string Title { get; private set; }
         public string? Description { get; set; }
-        public Priority Priority { get; private set; }
+        public Priority TaskPriority { get; private set; }
         public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; private set; } = DateTime.Today;
         public DateTime ExpirationDate { get; private set; }
@@ -25,7 +25,7 @@ namespace GestorDeTareas.Domain.Entities
 
             UserId = userId <= 0 ? throw new ArgumentException("El ID de usuario no puede ser 0 o negativo") : userId;
 
-            Priority = taskPriority;
+            TaskPriority = taskPriority;
              
             Description = description;
         }
@@ -87,7 +87,7 @@ namespace GestorDeTareas.Domain.Entities
         {
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
-            Priority = newPriority;
+            TaskPriority = newPriority;
         }
         public abstract override string ToString();
     }

@@ -8,11 +8,12 @@ namespace GestorDeTareas.Application.Services
     {
         private readonly IUserRepository _repository;
         public UserService(IUserRepository repository) => _repository = repository;
-        public List<UserResponseDto> GetAll() => _repository.GetAll();
-        public UserResponseDto? GetById(int id) => _repository.GetUserById(id);
-        public UserResponseDto Create(string name, string email, DateOnly birthday, bool isAdmin)
+        public List<User> GetAll() => _repository.GetAll();
+        public List<User> GetAllTasks() => _repository.GetAllTasks();
+        public User? GetById(int id) => _repository.GetUserById(id);
+        public UserResponseDto Create(UserRequestDto userDto)
         {
-            var user = new User(name, email, birthday, isAdmin);
+            var user = new User(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
             _repository.AddUser(user);
 
             return new UserResponseDto

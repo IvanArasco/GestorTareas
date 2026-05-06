@@ -9,22 +9,23 @@ namespace GestorDeTareas.Application.Dtos
         public Status TaskStatus { get; set; } = Status.Pending;
         public Priority TaskPriority { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public string TaskType { get; set; } = string.Empty;
         public string User { get; set; } = string.Empty;
 
         // Bug fields
-        public string? ExpectedBehaviour { get; private set; }
-        public string? ActualBehaviour { get; private set; }
+        public string? ExpectedBehaviour { get; set; }
+        public string? ActualBehaviour { get; set; }
 
         // Improvement fields
-        public string? AffectedFeature { get; private set; }
-        public string? ExpectedBenefict { get; private set; }
+        public string? AffectedFeature { get; set; }
+        public string? ExpectedBenefict { get; set; }
 
         // New feature fields
-        public DevelopmentArea? Area { get; private set; }
+        public DevelopmentArea? Area { get; set; }
 
         // RecurringTask fields
-        public Frequency? Frequency { get; private set; }
-        public DateTime? LastExecution { get; private set; }
-        public DateTime? NextExecution { get; private set; }
+        public Frequency? Frequency { get; set; }
+        public DateTime? LastExecution { get; set; }
+        public DateTime? NextExecution { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using GestorDeTareas.Domain.Entities;
 using GestorDeTareas.Domain.Enums;
 using GestorDeTareas.Infrastructure.Repositories;
+using Task = GestorDeTareas.Domain.Entities.Task;
 
 namespace GestorDeTareas.Application.Services
 {
@@ -9,53 +10,98 @@ namespace GestorDeTareas.Application.Services
     {
         private readonly ITaskRepository _repository;
         public TaskService(ITaskRepository repository) => _repository = repository;
-        public List<TaskResponseDto> GetAll() // Mapear para el DTO
+        public List<TaskResponseDto> GetAll()
         {
             return _repository.GetAll()
-                .Select(t => new TaskResponseDto
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    TaskStatus = t.TaskStatus,
-                    TaskPriority = t.Priority,
-                    ExpirationDate = t.ExpirationDate,
-                    User = t.User?.Name ?? "Sin asignar"
-                })
+                .Select(t => MapToResponseTaskDto(t))
                 .ToList();
         }
-        public TaskResponseDto? GetById(int id) // Mapear para el DTO
+        public TaskResponseDto? GetById(int id) 
         {
             var task = _repository.GetTaskById(id);
             if (task == null) return null;
 
-            return new TaskResponseDto 
+            return MapToResponseTaskDto(task);
+        }
+
+        // Depending on which 'TaskType' field, will create different types of Tasks.
+        public TaskResponseDto Create(TaskRequestDto taskDto)
+        {
+            Task task = taskDto.TaskType switch
+            {
+                "Bug" => new Bug(
+                    taskDto.Title,
+                    taskDto.TaskPriority,
+                    taskDto.ExpirationDate,
+                    taskDto.UserId,
+                    taskDto.ActualBehaviour,
+                    taskDto.ExpectedBehaviour,
+                    taskDto.Description
+                    ),
+                "Improvement" => new Improvement(
+                    taskDto.Title,
+                    taskDto.AffectedFeature,
+                    taskDto.ExpectedBenefict,
+                    taskDto.TaskPriority,
+                    taskDto.ExpirationDate,
+                    taskDto.UserId,
+                    taskDto.Description
+                    ),
+                "NewFeature" => new NewFeature(
+                    taskDto.Title,
+                    taskDto.TaskPriority,
+                    taskDto.ExpirationDate,
+                    taskDto.UserId,
+                    taskDto.DevelopmentArea,
+                    taskDto.Description
+                    ),
+                "RecurringTask" => new RecurringTask(
+                    taskDto.Title,
+                    taskDto.TaskPriority,
+                    taskDto.ExpirationDate,
+                    taskDto.Frequency,
+                    taskDto.LastExecution,
+                    taskDto.NextExecution,
+                    taskDto.UserId,
+                    taskDto.Description
+                ),
+                _ => throw new ArgumentException("Tipo de tarea no válido.")
+            };
+
+            _repository.AddTask(task); // en este punto mandamos la entidad, que ha sido mapeada para subirla a la BD.
+
+            return MapToResponseTaskDto(task);
+        }
+
+        private TaskResponseDto MapToResponseTaskDto(Task task)
+        {
+            return new TaskResponseDto
             {
                 Id = task.Id,
                 Title = task.Title,
                 TaskStatus = task.TaskStatus,
-                TaskPriority = task.Priority,
+                TaskPriority = task.TaskPriority,
                 ExpirationDate = task.ExpirationDate,
-                User = task.User?.Name ?? "Sin asignar"
+                TaskType = task.GetType().Name,
+                User = task.User?.Name ?? "Sin asignar",
+
+                // Bug fields
+                ExpectedBehaviour = task is Bug bugExpectedBehaviour ? bugExpectedBehaviour.ExpectedBehaviour : null,
+                ActualBehaviour = task is Bug bugActualBehaviour ? bugActualBehaviour.ActualBehaviour : null,
+
+                // Improvement fields
+                AffectedFeature = task is Improvement impAffectedFeature ? impAffectedFeature.AffectedFeature : null,
+                ExpectedBenefict = task is Improvement impExpectedBenefict ? impExpectedBenefict.ExpectedBenefict : null,
+
+                // New feature fields
+                Area = task is NewFeature nfArea ? nfArea.Area : null,
+
+                // RecurringTask fields
+                Frequency = task is RecurringTask rtFrequency ? rtFrequency.Frequency : null,
+                LastExecution = task is RecurringTask rtLastExecution ? rtLastExecution.LastExecution : null,
+                NextExecution = task is RecurringTask rtNextExecution ? rtNextExecution.NextExecution : null,
             };
         }
-
-        /* TO DO : DTO FOR EACH CHILD CLASS ???
-         * 
-        public TaskResponseDto Create(string title, Priority priority, DateTime expirationDate, int userId, DevelopmentArea developmentArea)
-        {
-            Task task = dto.TipoTarea switch
-            {
-                "Bug" => new Bug(...),
-                "Improvement" => new Improvement(...),
-                "NewFeature" => new NewFeature(...),
-                _ => throw new ArgumentException("Tipo de tarea no válido")
-            };
-
-            var task = new TaskResponseDto(title, priority, expirationDate, userId, developmentArea);
-            _repository.AddTask(task);
-            return task;
-        }
-        */
         public void Start(int id)
         {
             var task = _repository.GetTaskById(id)
