@@ -7,11 +7,11 @@ namespace GestorDeTareas.Domain.Entities
         public DevelopmentArea? Area { get; private set; }
         public NewFeature(
             string title,
-            Priority priority, 
+            Priority taskPriority, 
             DateTime expirationDate,
             int userId,
             DevelopmentArea? area, 
-            string? description = null) : base(title, priority, expirationDate, userId, description)
+            string? description = null) : base(title, taskPriority, expirationDate, userId, description)
         {
             Area = area;
         }

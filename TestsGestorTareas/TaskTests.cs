@@ -13,7 +13,7 @@ namespace TestGestorTareas
         {
             _taskTest = new Bug(
               title: "Test Bug 001",
-              priority: Priority.Low,
+              taskPriority: Priority.Low,
               expirationDate: DateTime.Today.AddDays(5),
               userId: 1,
               actualBehaviour: "App crashes on login");

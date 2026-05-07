@@ -14,7 +14,7 @@ public class TaskManagerContext : DbContext
     {
         // Configurar el discriminador TPH
         modelBuilder.Entity<Task>()
-        .HasDiscriminator<string>("TipoTarea")
+        .HasDiscriminator<string>("TaskType")
         .HasValue<RecurringTask>("Recurrente")
         .HasValue<Bug>("Bug")
         .HasValue<Improvement>("Mejora")

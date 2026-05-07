@@ -41,7 +41,7 @@ public class TasksController : ControllerBase
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
     {
 
-        // Obtener el Id del usuario autenticado desde el token
+        // Get auth user from token
         var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdStr == null) return Unauthorized();
 

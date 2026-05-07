@@ -9,13 +9,13 @@ namespace GestorDeTareas.Domain.Entities
         public DateTime? NextExecution { get; private set; }
         public RecurringTask(
            string title,
-            Priority priority,
+            Priority taskPriority,
             DateTime expirationDate,
             Frequency? frequency,
             DateTime? lastExecution,
             DateTime? nextExecution,
             int userId,
-            string? description = null) : base(title, priority, expirationDate, userId, description)
+            string? description = null) : base(title, taskPriority, expirationDate, userId, description)
         {
             Frequency = frequency;
             LastExecution = lastExecution;

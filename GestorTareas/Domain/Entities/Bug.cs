@@ -7,9 +7,10 @@ namespace GestorDeTareas.Domain.Entities
     {
         public string? ExpectedBehaviour { get; private set; }
         public string? ActualBehaviour { get; private set; }
+        public Bug() : base() { }
         public Bug(
             string title,
-            Priority priority,
+            Priority taskPriority,
             DateTime expirationDate,
             int userId,
             string? actualBehaviour = null,
@@ -17,7 +18,7 @@ namespace GestorDeTareas.Domain.Entities
             string? description = null
             ) : base(
                 title,
-                priority,
+                taskPriority,
                 expirationDate,
                 userId,
                 description)
