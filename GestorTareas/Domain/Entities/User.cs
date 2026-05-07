@@ -6,10 +6,11 @@ namespace GestorDeTareas.Domain.Entities
     {
         public int Id { get; init; }
         public string Name { get; private set; }
+        public string PasswordHash { get; set; } = string.Empty;
         public string Email { get; private set; }
         public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
-        public ICollection<Task> Tasks { get; private set; } = new List<Task>();
+        public List<Task> Tasks { get; private set; } = new();
         public User(string name, string email, DateOnly birthdate, bool isAdmin)
         {
 
