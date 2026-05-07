@@ -19,7 +19,7 @@ namespace GestorDeTareas.Controllers
         [AllowAnonymous]
         public IActionResult Registro([FromBody] RegisterDto dto)
         {
-            var result = _authService.Registrar(dto);
+            var result = _authService.Register(dto);
             if (result == null)
                 return Conflict("El email ya está registrado");
             return Ok(result);

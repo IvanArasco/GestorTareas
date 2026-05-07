@@ -13,7 +13,13 @@ namespace GestorDeTareas.Application.Services
         public User? GetById(int id) => _repository.GetUserById(id);
         public UserResponseDto Create(UserRequestDto userDto)
         {
-            var user = new User(userDto.Name, userDto.Email, userDto.Birthdate, userDto.IsAdmin);
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+            var user = new User(
+                userDto.Name,
+                passwordHash,
+                userDto.Email,
+                userDto.Birthdate,
+                userDto.IsAdmin);
             _repository.AddUser(user);
 
             return new UserResponseDto

@@ -19,24 +19,17 @@ namespace GestorDeTareas.Application.Services
             _config = config;
         }
 
-        public async Task<TokenResponseDto?> Registrar(RegisterDto dto)
+        public TokenResponseDto? Register(RegisterDto dto)
         {
             // Verificar que el email no está en uso
             if (_repository.GetByEmail(dto.Email) != null)
                 return null; // email ya registrado
 
             // Crear el usuario con la contraseña hasheada
-            var user = new User
-            {
-                Name = dto.Name,
-                Email = dto.Email,
-                Birthdate = dto.Birthdate, // no hay en el DTO pero el servicio lo usa
-                IsAdmin = false,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
-            };
+            var user = new User(dto.Name, BCrypt.Net.BCrypt.HashPassword(dto.Password), dto.Email, dto.Birthdate, false);
             _repository.AddUser(user);
 
-            return GenerarToken(user);
+            return GenerateToken(user);
         }
 
         public TokenResponseDto? Login(LoginDto dto)
@@ -44,13 +37,13 @@ namespace GestorDeTareas.Application.Services
             var usuario = _repository.GetByEmail(dto.Email);
             if (usuario == null) return null;
 
-            if (!BCrypt.Net.BCrypt.Verify(dto.Password, usuario.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(dto.Password, usuario.Password))
                 return null;
 
-            return GenerarToken(usuario);
+            return GenerateToken(usuario);
         }
 
-        private TokenResponseDto GenerarToken(User user)
+        private TokenResponseDto GenerateToken(User user)
         {
             var expiration = DateTime.UtcNow.AddMinutes(
             int.Parse(_config["Jwt:ExpirationMinutes"]!));

@@ -10,6 +10,9 @@ namespace GestorDeTareas.Application.Dtos
         [Required, EmailAddress(ErrorMessage = "Formato de email no válido")]
         public string Email { get; set; } = string.Empty;
 
+        [Required]
+        public DateOnly Birthdate { get; set; }
+
         [Required, MinLength(8, ErrorMessage = "Mínimo 8 caracteres")]
         public string Password { get; set; } = string.Empty;
     }
