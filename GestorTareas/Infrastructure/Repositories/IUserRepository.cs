@@ -8,6 +8,7 @@ namespace GestorDeTareas.Infrastructure.Repositories
         List<User> GetAll();
         List<User> GetAllTasks();
         User? GetUserById(int id);
+        User? GetByEmail(string email);
         void AddUser(User user);
         void Update(User user);
         void Delete(User user);

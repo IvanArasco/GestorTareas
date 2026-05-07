@@ -13,7 +13,7 @@ namespace GestorDeTareas.Application.Dtos
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        public DateOnly Birthday { get; set; }
+        public DateOnly Birthdate { get; set; }
         public bool IsAdmin { get; set; }
     }
 }

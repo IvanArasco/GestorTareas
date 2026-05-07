@@ -22,7 +22,7 @@ namespace GestorDeTareas.Application.Services
         public async Task<TokenResponseDto?> Registrar(RegisterDto dto)
         {
             // Verificar que el email no está en uso
-            if (_repository.ObtenerPorEmail(dto.Email) != null)
+            if (_repository.GetByEmail(dto.Email) != null)
                 return null; // email ya registrado
 
             // Crear el usuario con la contraseña hasheada
@@ -30,7 +30,8 @@ namespace GestorDeTareas.Application.Services
             {
                 Name = dto.Name,
                 Email = dto.Email,
-                EsAdmin = false,
+                Birthdate = dto.Birthdate, // no hay en el DTO pero el servicio lo usa
+                IsAdmin = false,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
             _repository.AddUser(user);
@@ -40,7 +41,7 @@ namespace GestorDeTareas.Application.Services
 
         public TokenResponseDto? Login(LoginDto dto)
         {
-            var usuario = _repository.ObtenerPorEmail(dto.Email);
+            var usuario = _repository.GetByEmail(dto.Email);
             if (usuario == null) return null;
 
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, usuario.PasswordHash))
@@ -52,7 +53,7 @@ namespace GestorDeTareas.Application.Services
         private TokenResponseDto GenerarToken(User user)
         {
             var expiration = DateTime.UtcNow.AddMinutes(
-            int.Parse(_config["Jwt:ExpiracionMinutos"]!));
+            int.Parse(_config["Jwt:ExpirationMinutes"]!));
 
             var claims = new[]
             {
@@ -63,7 +64,7 @@ namespace GestorDeTareas.Application.Services
                 };
 
             var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_config["Jwt:ClaveSecreta"]!));
+            Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]!));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

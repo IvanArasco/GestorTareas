@@ -13,7 +13,7 @@ namespace GestorDeTareas.Application.Services
         public User? GetById(int id) => _repository.GetUserById(id);
         public UserResponseDto Create(UserRequestDto userDto)
         {
-            var user = new User(userDto.Name, userDto.Email, userDto.Birthday, userDto.IsAdmin);
+            var user = new User(userDto.Name, userDto.Email, userDto.Birthdate, userDto.IsAdmin);
             _repository.AddUser(user);
 
             return new UserResponseDto
@@ -31,7 +31,7 @@ namespace GestorDeTareas.Application.Services
 
             user.ChangeName(dto.Name);
             user.ChangeEmail(dto.Email);
-            user.ChangeBirthdate(dto.Birthday);
+            user.ChangeBirthdate(dto.Birthdate);
             user.ChangeIsAdmin(dto.IsAdmin);
 
             _repository.Update(user);

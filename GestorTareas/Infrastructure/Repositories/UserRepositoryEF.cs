@@ -11,7 +11,10 @@ namespace GestorDeTareas.Infrastructure.Repositories
         public List<User> GetAll() => _context.Users.ToList();
         public List<User> GetAllTasks() => _context.Users.Include(u => u.Tasks).ToList();
         public User? GetUserById(int id) => _context.Users.FirstOrDefault(u => u.Id == id);
-
+        public User? GetByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == email);
+        }
         public void AddUser(User user)
         {
             _context.Users.Add(user);
