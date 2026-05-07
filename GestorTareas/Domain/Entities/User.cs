@@ -6,18 +6,18 @@ namespace GestorDeTareas.Domain.Entities
     {
         public int Id { get; init; }
         public string Name { get; private set; }
-        public string Password { get; private set; } = string.Empty;
+        public string PasswordHash { get; private set; } = string.Empty;
         public string Email { get; private set; }
         public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
         public List<Task> Tasks { get; private set; } = new();
-        public User(string name, string password, string email, DateOnly birthdate, bool isAdmin)
+        public User(string name, string passwordHash, string email, DateOnly birthdate, bool isAdmin)
         {
             Name = string.IsNullOrWhiteSpace(name)
                 ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
                 : name;
 
-            Password = password;
+            PasswordHash = passwordHash;
 
             Email = !VerifyEmail(email)
                 ? throw new InvalidOperationException("Email no válido.")

@@ -26,7 +26,8 @@ namespace GestorDeTareas.Application.Services
                 return null; // email ya registrado
 
             // Crear el usuario con la contraseña hasheada
-            var user = new User(dto.Name, BCrypt.Net.BCrypt.HashPassword(dto.Password), dto.Email, dto.Birthdate, false);
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            var user = new User(dto.Name, passwordHash, dto.Email, dto.Birthdate, false);
             _repository.AddUser(user);
 
             return GenerateToken(user);
@@ -34,13 +35,13 @@ namespace GestorDeTareas.Application.Services
 
         public TokenResponseDto? Login(LoginDto dto)
         {
-            var usuario = _repository.GetByEmail(dto.Email);
-            if (usuario == null) return null;
+            var user = _repository.GetByEmail(dto.Email);
+            if (user == null) return null;
 
-            if (!BCrypt.Net.BCrypt.Verify(dto.Password, usuario.Password))
+            if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return null;
 
-            return GenerateToken(usuario);
+            return GenerateToken(user);
         }
 
         private TokenResponseDto GenerateToken(User user)
@@ -70,7 +71,7 @@ namespace GestorDeTareas.Application.Services
             return new TokenResponseDto
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expira = expiration
+                ExpiresAt = expiration
             };
         }
     }
