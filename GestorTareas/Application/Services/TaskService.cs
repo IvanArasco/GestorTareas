@@ -25,7 +25,7 @@ namespace GestorDeTareas.Application.Services
         }
 
         // Depending on which 'TaskType' field, will create different types of Tasks.
-        public TaskResponseDto Create(TaskRequestDto taskDto)
+        public TaskResponseDto Create(TaskRequestDto taskDto, int UserId)
         {
             Task task = taskDto.TaskType switch
             {
@@ -33,7 +33,7 @@ namespace GestorDeTareas.Application.Services
                     taskDto.Title,
                     taskDto.TaskPriority,
                     taskDto.ExpirationDate,
-                    taskDto.UserId,
+                    UserId,
                     taskDto.ActualBehaviour,
                     taskDto.ExpectedBehaviour,
                     taskDto.Description
@@ -44,14 +44,14 @@ namespace GestorDeTareas.Application.Services
                     taskDto.ExpectedBenefict,
                     taskDto.TaskPriority,
                     taskDto.ExpirationDate,
-                    taskDto.UserId,
+                    UserId,
                     taskDto.Description
                     ),
                 "NewFeature" => new NewFeature(
                     taskDto.Title,
                     taskDto.TaskPriority,
                     taskDto.ExpirationDate,
-                    taskDto.UserId,
+                    UserId,
                     taskDto.DevelopmentArea,
                     taskDto.Description
                     ),
@@ -62,7 +62,7 @@ namespace GestorDeTareas.Application.Services
                     taskDto.Frequency,
                     taskDto.LastExecution,
                     taskDto.NextExecution,
-                    taskDto.UserId,
+                    UserId,
                     taskDto.Description
                 ),
                 _ => throw new ArgumentException("Tipo de tarea no válido.")
@@ -83,7 +83,7 @@ namespace GestorDeTareas.Application.Services
                 TaskPriority = task.TaskPriority,
                 ExpirationDate = task.ExpirationDate,
                 TaskType = task.GetType().Name,
-                User = task.User?.Name ?? "Sin asignar",
+                UserName = task.User?.Name ?? "Sin asignar",
 
                 // Bug fields
                 ExpectedBehaviour = task is Bug bugExpectedBehaviour ? bugExpectedBehaviour.ExpectedBehaviour : null,

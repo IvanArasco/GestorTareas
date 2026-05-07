@@ -1,9 +1,12 @@
 ﻿using GestorDeTareas.Application.Dtos;
 using GestorDeTareas.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 [ApiController]
 [Route("api/tasks")]
+[Authorize]
 public class TasksController : ControllerBase
 {
     private readonly TaskService _taskService;
@@ -37,12 +40,20 @@ public class TasksController : ControllerBase
     [HttpPost]
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
     {
-        var response = _taskService.Create(taskDto);
-        return Ok(response);
+
+        // Obtener el Id del usuario autenticado desde el token
+        var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdStr == null) return Unauthorized();
+
+        int userId = int.Parse(userIdStr);
+
+        var response = _taskService.Create(taskDto, userId);
+        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         try

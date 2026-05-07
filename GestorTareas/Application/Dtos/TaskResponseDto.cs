@@ -10,7 +10,7 @@ namespace GestorDeTareas.Application.Dtos
         public Priority TaskPriority { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string TaskType { get; set; } = string.Empty;
-        public string User { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         // Bug fields
         public string? ExpectedBehaviour { get; set; }

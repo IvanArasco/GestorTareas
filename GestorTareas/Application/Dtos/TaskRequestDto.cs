@@ -18,9 +18,7 @@ namespace GestorDeTareas.Application.Dtos
         public DevelopmentArea DevelopmentArea { get; set; }
         [Required]
         public string TaskType { get; set; } = string.Empty;
-        [Required]
-        public int UserId { get; set; }
-
+  
         // Bug fields
         public string? ExpectedBehaviour { get; set; }
         public string? ActualBehaviour { get; set; }
