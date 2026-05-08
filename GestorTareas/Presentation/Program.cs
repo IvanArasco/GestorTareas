@@ -50,7 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Middleware errors
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

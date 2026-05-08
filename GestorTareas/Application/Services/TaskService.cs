@@ -24,6 +24,8 @@ namespace GestorDeTareas.Application.Services
             return MapToResponseTaskDto(task);
         }
 
+        public List<Task> GetTasksByUserId(int userId) => _repository.GetTasksByUserId(userId);
+
         // Depending on which 'TaskType' field, will create different types of Tasks.
         public TaskResponseDto Create(TaskRequestDto taskDto, int UserId)
         {

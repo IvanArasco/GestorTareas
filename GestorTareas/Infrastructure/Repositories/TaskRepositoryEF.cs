@@ -11,9 +11,13 @@ namespace GestorDeTareas.Infrastructure.Repositories
         => _context = context;
 
         public List<Task> GetAll() => _context.Tasks.Include(t => t.User).ToList();
-        
         public Task? GetTaskById(int id) => _context.Tasks.Include(t => t.User).FirstOrDefault(t => t.Id == id);
-
+        public List<Task> GetTasksByUserId(int userId)
+        {
+            return _context.Tasks
+                .Where(t => t.UserId == userId)
+                .ToList();
+        }
         public void AddTask(Task task)
         {
             _context.Tasks.Add(task);

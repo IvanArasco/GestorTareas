@@ -24,14 +24,6 @@ namespace GestorDeTareas.Controllers
             return Ok(users);
         }
 
-        // GET /api/users/tasks
-        [HttpGet]
-        public IActionResult GetAllTasks()
-        {
-            var users = _userService.GetAllTasks();
-
-            return Ok(users);
-        }
         // GET /api/users/{id}
         [HttpGet("{id}")]
         public IActionResult GetById(int id)

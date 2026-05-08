@@ -36,6 +36,14 @@ public class TasksController : ControllerBase
         return Ok(task);
     }
 
+    // GET /api/users/{id}/tasks
+    [HttpGet("{id}/tasks")]
+    public IActionResult GetTasksByUserId(int id)
+    {
+        var tasks = _taskService.GetTasksByUserId(id);
+        return Ok(tasks);
+    }
+
     //POST /api/tasks
     [HttpPost]
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)

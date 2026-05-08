@@ -38,7 +38,9 @@ namespace GestorDeTareas.Application.Services
             var user = _repository.GetByEmail(dto.Email);
             if (user == null) return null;
 
-            if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+            var verify = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
+            
+            if (!verify)
                 return null;
 
             return GenerateToken(user);
