@@ -15,10 +15,10 @@ public class TaskManagerContext : DbContext
         // Configurar el discriminador TPH
         modelBuilder.Entity<Task>()
         .HasDiscriminator<string>("TaskType")
-        .HasValue<RecurringTask>("Recurrente")
+        .HasValue<RecurringTask>("RecurringTask")
         .HasValue<Bug>("Bug")
-        .HasValue<Improvement>("Mejora")
-        .HasValue<NewFeature>("Nueva funcionalidad");
+        .HasValue<Improvement>("Improvement")
+        .HasValue<NewFeature>("NewFeature");
 
         // Limitar longitud del título
         modelBuilder.Entity<Task>()

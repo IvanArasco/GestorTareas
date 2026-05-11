@@ -8,8 +8,33 @@ namespace GestorDeTareas.Application.Services
     {
         private readonly IUserRepository _repository;
         public UserService(IUserRepository repository) => _repository = repository;
-        public List<User> GetAll() => _repository.GetAll();
-        public User? GetById(int id) => _repository.GetUserById(id);
+        public List<UserResponseDto> GetAll()
+        {
+            return _repository.GetAll()
+                .Select(u => new UserResponseDto
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email,
+                    Birthdate = u.Birthdate,
+                    IsAdmin = u.IsAdmin
+                })
+                .ToList();
+        }
+        public UserResponseDto? GetById(int id)
+        {
+            var user = _repository.GetUserById(id);
+            if (user == null) return null;
+
+            return new UserResponseDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Birthdate = user.Birthdate,
+                IsAdmin = user.IsAdmin
+            };
+        }
         public UserResponseDto Create(UserRequestDto userDto)
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password);

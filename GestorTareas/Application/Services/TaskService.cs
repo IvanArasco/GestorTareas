@@ -23,7 +23,6 @@ namespace GestorDeTareas.Application.Services
 
             return MapToResponseTaskDto(task);
         }
-
         public List<Task> GetTasksByUserId(int userId) => _repository.GetTasksByUserId(userId);
 
         // Depending on which 'TaskType' field, will create different types of Tasks.
@@ -72,7 +71,12 @@ namespace GestorDeTareas.Application.Services
 
             _repository.AddTask(task);
 
-            return MapToResponseTaskDto(task);
+            // After AddTask, the entity in memory has UserId but UserName is null.
+            // We get it from DB (with Include) to get the full User object and map the userName.
+
+            var saved = _repository.GetTaskById(task.Id); 
+
+            return MapToResponseTaskDto(saved!);
         }
 
         private TaskResponseDto MapToResponseTaskDto(Task task)

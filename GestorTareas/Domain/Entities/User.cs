@@ -4,7 +4,7 @@ namespace GestorDeTareas.Domain.Entities
 {
     public class User
     {
-        public int Id { get; init; }
+        public int Id { get; private set; }
         public string Name { get; private set; }
         public string PasswordHash { get; private set; } = string.Empty;
         public string Email { get; private set; }

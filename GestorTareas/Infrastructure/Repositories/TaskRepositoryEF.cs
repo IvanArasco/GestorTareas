@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GestorDeTareas.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Task = GestorDeTareas.Domain.Entities.Task;
 
 namespace GestorDeTareas.Infrastructure.Repositories

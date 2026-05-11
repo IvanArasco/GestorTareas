@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestorDeTareas.Infrastructure.Repositories
 {
@@ -6,7 +7,7 @@ namespace GestorDeTareas.Infrastructure.Repositories
     {
         private readonly TaskManagerContext _context;
         public UserRepositoryEF(TaskManagerContext context) => _context = context;
-        public List<User> GetAll() => _context.Users.ToList();
+        public List<User> GetAll() => _context.Users.Include(u => u.Tasks).ToList();
         public User? GetUserById(int id) => _context.Users.FirstOrDefault(u => u.Id == id);
         public User? GetByEmail(string email)
         {
