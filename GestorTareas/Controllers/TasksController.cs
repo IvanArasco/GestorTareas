@@ -36,8 +36,8 @@ public class TasksController : ControllerBase
         return Ok(task);
     }
 
-    // GET /api/users/{id}/tasks
-    [HttpGet("{id}/tasks")]
+    // GET /api/tasks/by-user/id
+    [HttpGet("by-user/{id}")]
     public IActionResult GetTasksByUserId(int id)
     {
         var tasks = _taskService.GetTasksByUserId(id);
