@@ -5,17 +5,17 @@ namespace GestorDeTareas.Domain.Entities
     public class User
     {
         public int Id { get; private set; }
-        public string Name { get; private set; }
+        public string Username { get; private set; }
         public string PasswordHash { get; private set; } = string.Empty;
         public string Email { get; private set; }
         public DateOnly Birthdate { get; private set; }
         public bool IsAdmin { get; private set; }
         public List<Task> Tasks { get; private set; } = new();
-        public User(string name, string passwordHash, string email, DateOnly birthdate, bool isAdmin)
+        public User(string username, string passwordHash, string email, DateOnly birthdate, bool isAdmin)
         {
-            Name = string.IsNullOrWhiteSpace(name)
-                ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(name))
-                : name;
+            Username = string.IsNullOrWhiteSpace(username)
+                ? throw new ArgumentException("El nombre no puede estar vacío.", nameof(username))
+                : username;
 
             PasswordHash = passwordHash;
 
@@ -40,7 +40,7 @@ namespace GestorDeTareas.Domain.Entities
         }
         public void ChangeName(string newName)
         {
-            Name = string.IsNullOrWhiteSpace(newName)
+            Username = string.IsNullOrWhiteSpace(newName)
                 ? throw new ArgumentException("El nombre no puede estar vacío.")
                 : newName;
         }
@@ -65,7 +65,7 @@ namespace GestorDeTareas.Domain.Entities
 
         public override string ToString()
         {
-            return $"[USER] Nombre : {Name} - Email: {Email} - Fecha Nacimiento: {Birthdate} - {(IsAdmin ? "Es admin" : "No es admin")}";
+            return $"[USER] Nombre : {Username} - Email: {Email} - Fecha Nacimiento: {Birthdate} - {(IsAdmin ? "Es admin" : "No es admin")}";
         }
     }
 }

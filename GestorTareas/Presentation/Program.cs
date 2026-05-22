@@ -41,6 +41,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("FrontendDev", policy => {
+        // Puerto 4200 — el que usa ng serve por defecto
+        policy.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.Converters.Add(
+            new System.Text.Json.Serialization.JsonStringEnumConverter()
+        );
+    });
+
 var app = builder.Build();
 
 // PARTE 4: Configurar el pipeline de peticiones
@@ -51,6 +67,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("FrontendDev");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

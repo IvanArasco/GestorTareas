@@ -14,7 +14,7 @@ namespace GestorDeTareas.Application.Services
                 .Select(u => new UserResponseDto
                 {
                     Id = u.Id,
-                    Name = u.Name,
+                    Username = u.Username,
                     Email = u.Email,
                     Birthdate = u.Birthdate,
                     IsAdmin = u.IsAdmin
@@ -29,7 +29,7 @@ namespace GestorDeTareas.Application.Services
             return new UserResponseDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                Username = user.Username,
                 Email = user.Email,
                 Birthdate = user.Birthdate,
                 IsAdmin = user.IsAdmin
@@ -39,7 +39,7 @@ namespace GestorDeTareas.Application.Services
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
             var user = new User(
-                userDto.Name,
+                userDto.Username,
                 passwordHash,
                 userDto.Email,
                 userDto.Birthdate,
@@ -49,7 +49,7 @@ namespace GestorDeTareas.Application.Services
             return new UserResponseDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                Username = user.Username,
                 Email = user.Email,
                 IsAdmin = user.IsAdmin
             };
@@ -59,7 +59,7 @@ namespace GestorDeTareas.Application.Services
             var user = _repository.GetUserById(id)
                 ?? throw new KeyNotFoundException($"No existe el usuario con Id {id}");
 
-            user.ChangeName(dto.Name);
+            user.ChangeName(dto.Username);
             user.ChangeEmail(dto.Email);
             user.ChangeBirthdate(dto.Birthdate);
             user.ChangeIsAdmin(dto.IsAdmin);

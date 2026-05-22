@@ -27,7 +27,8 @@ namespace GestorDeTareas.Application.Services
 
             // Crear el usuario con la contraseña hasheada
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-            var user = new User(dto.Name, passwordHash, dto.Email, dto.Birthdate, false);
+            var birthdate = DateOnly.Parse(dto.Birthdate);
+            var user = new User(dto.Username, passwordHash, dto.Email, birthdate, false);
             _repository.AddUser(user);
 
             return GenerateToken(user);
@@ -54,7 +55,7 @@ namespace GestorDeTareas.Application.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
                 };

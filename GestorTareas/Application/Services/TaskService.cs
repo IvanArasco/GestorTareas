@@ -89,7 +89,7 @@ namespace GestorDeTareas.Application.Services
                 TaskPriority = task.TaskPriority,
                 ExpirationDate = task.ExpirationDate,
                 TaskType = task.GetType().Name,
-                UserName = task.User?.Name ?? "Sin asignar",
+                UserName = task.User?.Username ?? "Sin asignar",
 
                 // Bug fields
                 ExpectedBehaviour = task is Bug bugExpectedBehaviour ? bugExpectedBehaviour.ExpectedBehaviour : null,
