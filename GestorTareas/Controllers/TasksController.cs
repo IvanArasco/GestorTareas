@@ -59,6 +59,44 @@ public class TasksController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
+    // PATCH /api/tasks/{id}/complete
+    [HttpPatch("{id}/complete")]
+    public IActionResult Complete(int id)
+    {
+        try
+        {
+            _taskService.Complete(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    // PATCH /api/tasks/{id}/start
+    [HttpPatch("{id}/start")]
+    public IActionResult Start(int id)
+    {
+        try
+        {
+            _taskService.Start(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
