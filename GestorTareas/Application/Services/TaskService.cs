@@ -89,6 +89,7 @@ namespace GestorDeTareas.Application.Services
                 TaskPriority = task.TaskPriority,
                 ExpirationDate = task.ExpirationDate,
                 TaskType = task.GetType().Name,
+                UserId = task.UserId,
                 UserName = task.User?.Username ?? "Sin asignar",
 
                 // Bug fields

@@ -99,9 +99,19 @@ public class TasksController : ControllerBase
 
     // DELETE /api/tasks/{id}
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
+        var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdStr == null) return Unauthorized();
+        int userId = int.Parse(userIdStr);
+
+        var task = _taskService.GetById(id);
+        if (task == null) return NotFound();
+
+        var isAdmin = User.IsInRole("Admin");
+        if (!isAdmin && task.UserId != userId)
+            return Forbid();
+
         try
         {
             _taskService.Delete(id);

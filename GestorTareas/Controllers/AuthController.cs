@@ -17,7 +17,7 @@ namespace GestorDeTareas.Controllers
         // POST /api/auth/registro
         [HttpPost("register")]
         [AllowAnonymous]
-        public IActionResult Registro([FromBody] RegisterDto dto)
+        public IActionResult Register([FromBody] RegisterDto dto)
         {
             var result = _authService.Register(dto);
             if (result == null)

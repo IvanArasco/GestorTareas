@@ -11,6 +11,7 @@ namespace GestorDeTareas.Application.Dtos
         public DateTime ExpirationDate { get; set; }
         public string TaskType { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
+        public int UserId { get; set; }
 
         // Bug fields
         public string? ExpectedBehaviour { get; set; }
