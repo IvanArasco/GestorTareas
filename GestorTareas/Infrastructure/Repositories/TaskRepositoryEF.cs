@@ -16,6 +16,7 @@ namespace GestorDeTareas.Infrastructure.Repositories
         public List<Task> GetTasksByUserId(int userId)
         {
             return _context.Tasks
+                .Include(t => t.User)
                 .Where(t => t.UserId == userId)
                 .ToList();
         }

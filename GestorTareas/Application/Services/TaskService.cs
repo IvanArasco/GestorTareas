@@ -23,8 +23,12 @@ namespace GestorDeTareas.Application.Services
 
             return MapToResponseTaskDto(task);
         }
-        public List<Task> GetTasksByUserId(int userId) => _repository.GetTasksByUserId(userId);
-
+        public List<TaskResponseDto> GetTasksByUserId(int userId)
+        {
+            return _repository.GetTasksByUserId(userId)
+                .Select(t => MapToResponseTaskDto(t))
+                .ToList();
+        }
         // Depending on which 'TaskType' field, will create different types of Tasks.
         public TaskResponseDto Create(TaskRequestDto taskDto, int UserId)
         {
@@ -90,7 +94,7 @@ namespace GestorDeTareas.Application.Services
                 ExpirationDate = task.ExpirationDate,
                 TaskType = task.GetType().Name,
                 UserId = task.UserId,
-                UserName = task.User?.Username ?? "Sin asignar",
+                Username = task.User?.Username ?? "Sin asignar",
 
                 // Bug fields
                 ExpectedBehaviour = task is Bug bugExpectedBehaviour ? bugExpectedBehaviour.ExpectedBehaviour : null,
