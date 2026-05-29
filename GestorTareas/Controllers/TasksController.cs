@@ -48,7 +48,6 @@ public class TasksController : ControllerBase
     [HttpPost]
     public IActionResult AddTask([FromBody] TaskRequestDto taskDto)
     {
-
         // Get auth user from token
         var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdStr == null) return Unauthorized();
@@ -63,35 +62,27 @@ public class TasksController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] TaskRequestDto taskDto)
     {
-        // 1. Obtener el ID del usuario autenticado desde el Token JWT
         var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdStr == null) return Unauthorized();
         int userId = int.Parse(userIdStr);
 
-        // 2. Comprobar si la tarea existe
-        var existingTask = _taskService.GetById(id);
-        if (existingTask == null) return NotFound();
-
-        // 3. Control de autorización (Solo Admin o el propietario de la tarea)
         var isAdmin = User.IsInRole("Admin");
-        if (!isAdmin && existingTask.UserId != userId)
-            return Forbid();
 
         try
         {
-            // 4. Ejecutar la actualización en la capa de aplicación
-            var response = _taskService.Update(id, taskDto);
+            // Delegamos la validación de existencia y permisos al servicio en una sola transacción
+            var response = _taskService.Update(id, taskDto, userId, isAdmin);
             return Ok(response);
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
         }
-        catch (ArgumentException ex)
+        catch (UnauthorizedAccessException) // Nueva excepción para el control de permisos
         {
-            return BadRequest(ex.Message);
+            return Forbid();
         }
-        catch (InvalidOperationException ex)
+        catch (ArgumentException ex)
         {
             return BadRequest(ex.Message);
         }
@@ -142,22 +133,20 @@ public class TasksController : ControllerBase
         var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdStr == null) return Unauthorized();
         int userId = int.Parse(userIdStr);
-
-        var task = _taskService.GetById(id);
-        if (task == null) return NotFound();
-
         var isAdmin = User.IsInRole("Admin");
-        if (!isAdmin && task.UserId != userId)
-            return Forbid();
 
         try
         {
-            _taskService.Delete(id);
+            _taskService.Delete(id, userId, isAdmin);
             return NoContent();
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
         }
     }
 }

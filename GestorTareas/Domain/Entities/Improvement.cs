@@ -19,12 +19,12 @@ namespace GestorDeTareas.Domain.Entities
             AffectedFeature = affectedFeature;
         }
 
-        public void ChangeExpectedBenefict(string expectedBenefict)
+        public void ChangeExpectedBenefict(string? expectedBenefict)
         {
             ExpectedBenefict = expectedBenefict;
         }
 
-        public void ChangeAffectedFeature(string affectedFeature)
+        public void ChangeAffectedFeature(string? affectedFeature)
         {
             AffectedFeature = affectedFeature;
         }

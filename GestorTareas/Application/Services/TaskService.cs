@@ -29,10 +29,13 @@ namespace GestorDeTareas.Application.Services
                 .Select(t => MapToResponseTaskDto(t))
                 .ToList();
         }
-        public TaskResponseDto Update(int id, TaskRequestDto taskDto)
+        public TaskResponseDto Update(int id, TaskRequestDto taskDto, int currentUserId, bool isAdmin)
         {
             var task = _repository.GetTaskById(id)
                 ?? throw new KeyNotFoundException($"No existe la tarea con Id {id}");
+
+            if (!isAdmin && task.UserId != currentUserId)
+                throw new UnauthorizedAccessException("No tienes permisos para modificar esta tarea.");
 
             // Set common properties using methods
             task.ChangeTitle(taskDto.Title);
@@ -63,14 +66,14 @@ namespace GestorDeTareas.Application.Services
                     if (taskDto.TaskType != "NewFeature")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    newFeature.ChangeArea(taskDto.Area.Value); 
+                    newFeature.ChangeArea(taskDto.Area); 
                     break;
 
                 case RecurringTask recurringTask:
                     if (taskDto.TaskType != "RecurringTask")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    recurringTask.ChangeFrequency(taskDto.Frequency.Value); 
+                    recurringTask.ChangeFrequency(taskDto.Frequency); 
 
                     recurringTask.ChangeLastExecution(taskDto.LastExecution);
                     recurringTask.ChangeNextExecution(taskDto.NextExecution);
@@ -202,10 +205,14 @@ namespace GestorDeTareas.Application.Services
             _repository.Update(task);
         }
 
-        public void Delete(int id)
+        public void Delete(int id, int currentUserId, bool isAdmin)
         {
             var task = _repository.GetTaskById(id)
                 ?? throw new KeyNotFoundException($"No existe la tarea con Id {id}");
+
+            if (!isAdmin && task.UserId != currentUserId)
+                throw new UnauthorizedAccessException("No tienes permisos para eliminar esta tarea.");
+
             _repository.Delete(task);
         }
     }

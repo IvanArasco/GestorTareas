@@ -27,11 +27,11 @@ namespace GestorDeTareas.Domain.Entities
             ActualBehaviour = actualBehaviour;
         }
 
-        public void ChangeExpectedBehaviour(string expectedBehaviour)
+        public void ChangeExpectedBehaviour(string? expectedBehaviour)
         {
             ExpectedBehaviour = expectedBehaviour;
         }
-        public void ChangeActualBehaviour(string actualBehaviour)
+        public void ChangeActualBehaviour(string? actualBehaviour)
         {
             ActualBehaviour = actualBehaviour;
         }
