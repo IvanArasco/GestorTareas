@@ -10,7 +10,7 @@ namespace TestsGestorTareas
         [SetUp]
         public void Setup()
         {
-            _userTest = new User("Ivan", "ivan@gmail.com", new DateOnly(1990, 05, 15), false);
+            _userTest = new User("Ivan", "hashed_password_123", "ivan@gmail.com", new DateOnly(1990, 05, 15), false);
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace TestsGestorTareas
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() =>
-                new User("Ivan", "ivan@gmail.com", birthdate, false));
+                new User("Ivan", "hashed_password_123", "ivan@gmail.com", birthdate, false));
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace TestsGestorTareas
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() =>
-                new User(name, "ivan@gmail.com", new DateOnly(1990, 5, 15), false));
+                new User(name, "hashed_password_123", "ivan@gmail.com", new DateOnly(1990, 5, 15), false));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace TestsGestorTareas
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() =>
-                new User(name, "ivan@gmail.com", new DateOnly(1990, 5, 15), false));
+                new User(name, "hashed_password_123", "ivan@gmail.com", new DateOnly(1990, 5, 15), false));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace TestsGestorTareas
             _userTest.ChangeName("Pedro");
 
             // Assert
-            Assert.That(_userTest.Name, Is.EqualTo("Pedro"));
+            Assert.That(_userTest.Username, Is.EqualTo("Pedro"));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace TestsGestorTareas
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() =>
-                new User("Ivan", email, new DateOnly(1990, 5, 15), false));
+                new User("Ivan", "hashed_password_123", email, new DateOnly(1990, 5, 15), false));
 
         }
 
