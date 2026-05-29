@@ -24,16 +24,16 @@ namespace GestorDeTareas.Domain.Entities
                 ? nextExecution : throw new ArgumentException();
         }
 
-        public void ChangeFrequency(Frequency freq)
+        public void ChangeFrequency(Frequency? freq)
         {
             Frequency = freq;
         }
-        public void ChangeLastExecution(DateTime lastExecution)
+        public void ChangeLastExecution(DateTime? lastExecution)
         {
             LastExecution = lastExecution;
         }
 
-        public void ChangeNextExecution(DateTime nextExecution)
+        public void ChangeNextExecution(DateTime? nextExecution)
         {
             NextExecution = nextExecution;
         }

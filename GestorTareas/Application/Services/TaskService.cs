@@ -63,14 +63,15 @@ namespace GestorDeTareas.Application.Services
                     if (taskDto.TaskType != "NewFeature")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    newFeature.ChangeArea(taskDto.Area);
+                    newFeature.ChangeArea(taskDto.Area.Value); 
                     break;
 
                 case RecurringTask recurringTask:
                     if (taskDto.TaskType != "RecurringTask")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    recurringTask.ChangeFrequency(taskDto.Frequency);
+                    recurringTask.ChangeFrequency(taskDto.Frequency.Value); 
+
                     recurringTask.ChangeLastExecution(taskDto.LastExecution);
                     recurringTask.ChangeNextExecution(taskDto.NextExecution);
                     break;
@@ -79,10 +80,8 @@ namespace GestorDeTareas.Application.Services
                     throw new ArgumentException("Tipo de entidad en base de datos no reconocido.");
             }
 
-            // 4. Persistir los cambios en la base de datos a través del repositorio
             _repository.Update(task);
 
-            // 5. Volver a recuperar de la BD para asegurar que traemos el Include del User (Username) actualizado
             var updatedTask = _repository.GetTaskById(id);
 
             return MapToResponseTaskDto(updatedTask!);

@@ -16,7 +16,7 @@ namespace GestorDeTareas.Domain.Entities
             Area = area;
         }
 
-        public void ChangeArea(DevelopmentArea area)
+        public void ChangeArea(DevelopmentArea? area)
         {
             Area = area;
         }
