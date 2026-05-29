@@ -15,8 +15,6 @@ namespace GestorDeTareas.Application.Dtos
         [Required]
         public DateTime ExpirationDate { get; set; }
         [Required]
-        public DevelopmentArea DevelopmentArea { get; set; }
-        [Required]
         public string TaskType { get; set; } = string.Empty;
   
         // Bug fields

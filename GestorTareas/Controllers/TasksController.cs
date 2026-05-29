@@ -59,6 +59,44 @@ public class TasksController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
+    // PUT /api/tasks/{id}
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, [FromBody] TaskRequestDto taskDto)
+    {
+        // 1. Obtener el ID del usuario autenticado desde el Token JWT
+        var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdStr == null) return Unauthorized();
+        int userId = int.Parse(userIdStr);
+
+        // 2. Comprobar si la tarea existe
+        var existingTask = _taskService.GetById(id);
+        if (existingTask == null) return NotFound();
+
+        // 3. Control de autorización (Solo Admin o el propietario de la tarea)
+        var isAdmin = User.IsInRole("Admin");
+        if (!isAdmin && existingTask.UserId != userId)
+            return Forbid();
+
+        try
+        {
+            // 4. Ejecutar la actualización en la capa de aplicación
+            var response = _taskService.Update(id, taskDto);
+            return Ok(response);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     // PATCH /api/tasks/{id}/complete
     [HttpPatch("{id}/complete")]
     public IActionResult Complete(int id)
