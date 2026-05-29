@@ -31,53 +31,48 @@ namespace GestorDeTareas.Application.Services
         }
         public TaskResponseDto Update(int id, TaskRequestDto taskDto)
         {
-            // 1. Obtener la tarea del repositorio (con tracking de EF para poder guardar cambios)
             var task = _repository.GetTaskById(id)
                 ?? throw new KeyNotFoundException($"No existe la tarea con Id {id}");
 
-            // 2. Modificar propiedades comunes usando el comportamiento encapsulado de la entidad
+            // Set common properties using methods
             task.ChangeTitle(taskDto.Title);
             task.ChangeExpirationTime(taskDto.ExpirationDate);
             task.ChangePriority(taskDto.TaskPriority);
+            task.ChangeDescription(taskDto.Description);
 
-            // Al ser Description una propiedad con setter público ({ get; set; }) la editamos directamente
-            task.Description = taskDto.Description;
-
-            // 3. Modificar propiedades específicas según la subclase real de la tarea
+            // Set uncommon / specific depending on taskType
             switch (task)
             {
                 case Bug bug:
                     if (taskDto.TaskType != "Bug")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    bug.ActualBehaviour = taskDto.ActualBehaviour;
-                    bug.ExpectedBehaviour = taskDto.ExpectedBehaviour;
+                    bug.ChangeActualBehaviour(taskDto.ActualBehaviour);
+                    bug.ChangeExpectedBehaviour(taskDto.ExpectedBehaviour);
                     break;
 
                 case Improvement improvement:
                     if (taskDto.TaskType != "Improvement")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    improvement.AffectedFeature = taskDto.AffectedFeature;
-                    improvement.ExpectedBenefict = taskDto.ExpectedBenefict;
+                    improvement.ChangeAffectedFeature(taskDto.AffectedFeature);
+                    improvement.ChangeExpectedBenefict(taskDto.ExpectedBenefict);
                     break;
 
                 case NewFeature newFeature:
                     if (taskDto.TaskType != "NewFeature")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    // Nota: En tu MapToResponseTaskDto usas 'task.Area', pero en tu Create usas 'taskDto.DevelopmentArea'.
-                    // Ajusta esta asignación según se llame la propiedad exacta dentro de tu entidad 'NewFeature'
-                    newFeature.Area = taskDto.DevelopmentArea;
+                    newFeature.ChangeArea(taskDto.Area);
                     break;
 
                 case RecurringTask recurringTask:
                     if (taskDto.TaskType != "RecurringTask")
                         throw new ArgumentException("No se puede cambiar el tipo base de la tarea.");
 
-                    recurringTask.Frequency = taskDto.Frequency;
-                    recurringTask.LastExecution = taskDto.LastExecution;
-                    recurringTask.NextExecution = taskDto.NextExecution;
+                    recurringTask.ChangeFrequency(taskDto.Frequency);
+                    recurringTask.ChangeLastExecution(taskDto.LastExecution);
+                    recurringTask.ChangeNextExecution(taskDto.NextExecution);
                     break;
 
                 default:
@@ -121,7 +116,7 @@ namespace GestorDeTareas.Application.Services
                     taskDto.TaskPriority,
                     taskDto.ExpirationDate,
                     UserId,
-                    taskDto.DevelopmentArea,
+                    taskDto.Area,
                     taskDto.Description
                     ),
                 "RecurringTask" => new RecurringTask(

@@ -19,6 +19,16 @@ namespace GestorDeTareas.Domain.Entities
             AffectedFeature = affectedFeature;
         }
 
+        public void ChangeExpectedBenefict(string expectedBenefict)
+        {
+            ExpectedBenefict = expectedBenefict;
+        }
+
+        public void ChangeAffectedFeature(string affectedFeature)
+        {
+            AffectedFeature = affectedFeature;
+        }
+
         public override string ToString()
         {
             return $"[MEJORA] Título : {Title} " +

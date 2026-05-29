@@ -16,6 +16,10 @@ namespace GestorDeTareas.Domain.Entities
             Area = area;
         }
 
+        public void ChangeArea(DevelopmentArea area)
+        {
+            Area = area;
+        }
         public override string ToString()
         {
             return $"[NUEVA FUNCIONALIDAD] Título : {Title} " +

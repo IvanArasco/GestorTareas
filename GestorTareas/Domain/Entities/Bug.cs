@@ -26,6 +26,15 @@ namespace GestorDeTareas.Domain.Entities
             ExpectedBehaviour = expectedBehaviour;
             ActualBehaviour = actualBehaviour;
         }
+
+        public void ChangeExpectedBehaviour(string expectedBehaviour)
+        {
+            ExpectedBehaviour = expectedBehaviour;
+        }
+        public void ChangeActualBehaviour(string actualBehaviour)
+        {
+            ActualBehaviour = actualBehaviour;
+        }
         public override string ToString()
         {
             return $"[BUG] Título: {Title} " +
