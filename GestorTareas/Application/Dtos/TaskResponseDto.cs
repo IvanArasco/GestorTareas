@@ -6,6 +6,8 @@ namespace GestorDeTareas.Application.Dtos
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
         public Status TaskStatus { get; set; } = Status.Pending;
         public Priority TaskPriority { get; set; }
         public DateTime ExpirationDate { get; set; }

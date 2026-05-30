@@ -96,7 +96,7 @@ namespace GestorDeTareas.Application.Services
             Task task = taskDto.TaskType switch
             {
                 "Bug" => new Bug(
-                    taskDto.Title,
+                    taskDto.Title, 
                     taskDto.TaskPriority,
                     taskDto.ExpirationDate,
                     UserId,
@@ -150,6 +150,7 @@ namespace GestorDeTareas.Application.Services
             {
                 Id = task.Id,
                 Title = task.Title,
+                Description = task.Description,
                 TaskStatus = task.TaskStatus,
                 TaskPriority = task.TaskPriority,
                 ExpirationDate = task.ExpirationDate,

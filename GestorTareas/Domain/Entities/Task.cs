@@ -6,7 +6,7 @@ namespace GestorDeTareas.Domain.Entities
     {
         public int Id { get; init; }
         public string Title { get; private set; }
-        public string? Description { get; private set; }
+        public string Description { get; private set; }
         public Priority TaskPriority { get; private set; }
         public Status TaskStatus { get; private set; } = Status.Pending;
         public DateTime CreationDate { get; private set; } = DateTime.Today;
