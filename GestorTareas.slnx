@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/GestorTareas/">
+    <Project Path="GestorTareas/GestorTareasBackend.csproj" />
+  </Folder>
+  <Project Path="TestsGestorTareas/TestsGestorTareas.csproj" />
+</Solution>

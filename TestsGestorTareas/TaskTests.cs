@@ -2,7 +2,7 @@
 using GestorDeTareas.Domain.Enums;
 using Task = GestorDeTareas.Domain.Entities.Task;
 
-namespace TestGestorTareas
+namespace TestsGestorTareas
 {
     public class TaskTests
     {
@@ -124,7 +124,7 @@ namespace TestGestorTareas
                 expirationDate: expirationDate,
                 frequency: Frequency.Daily,
                 lastExecution: null,
-                nextExecution: null, // constructor normally validate the field.
+                nextExecution: DateTime.Today.AddDays(2), // constructor validation (need correct field) or throw exception
                 userId: 1
             );
 

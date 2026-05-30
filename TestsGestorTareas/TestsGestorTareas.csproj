@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GestorTareas\GestorDeTareas.csproj" />
     <ProjectReference Include="..\GestorTareas\GestorTareasBackend.csproj" />
   </ItemGroup>
 
