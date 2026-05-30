@@ -110,5 +110,29 @@ namespace TestGestorTareas
             // 3. ASSERT
             Assert.That(_taskTest.CalcRemainingDays(), Is.GreaterThan(0));
         }
+
+        [Test]
+        public void RecurringTaskDate_ExpDateLessThanNextExecution_ReturnFalse()
+        {
+            // 1. ARRANGE
+            var expirationDate = DateTime.Today.AddDays(5);
+            var nextExecution = DateTime.Today.AddDays(10); // bigger than expirationDate
+
+            var recurringTask = new RecurringTask(
+                title: "Test RecurringTask 001",
+                taskPriority: Priority.Low,
+                expirationDate: expirationDate,
+                frequency: Frequency.Daily,
+                lastExecution: null,
+                nextExecution: null, // constructor normally validate the field.
+                userId: 1
+            );
+
+            // 2. ACT
+            var result = recurringTask.ValidateNextExecutionDate(nextExecution);
+
+            // 3. ASSERT
+            Assert.That(result, Is.False);
+        }
     }
 }

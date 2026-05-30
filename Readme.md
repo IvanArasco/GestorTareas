@@ -9,6 +9,7 @@ ESTRUCTURA DEL PROYECTO:
 * Clase padre Task --> 4 clases hijas --> Bug, Improvement, NewFeature, RecurringTask.
 * Clase User --> Auth con Jwt, Login y Register.
 * Conexión a BD utilizando Entity Framework.
+* Angular en el Front. Principios de Usabilidad y Accesibilidad.
 
 ESTRUCTURA DE LAS CLASES: (Resumen)
 
