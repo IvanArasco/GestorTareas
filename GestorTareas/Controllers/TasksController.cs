@@ -54,8 +54,15 @@ public class TasksController : ControllerBase
 
         int userId = int.Parse(userIdStr);
 
-        var response = _taskService.Create(taskDto, userId);
-        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+        try
+        {
+            var response = _taskService.Create(taskDto, userId);
+            return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // PUT /api/tasks/{id}
@@ -83,6 +90,10 @@ public class TasksController : ControllerBase
             return Forbid();
         }
         catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
         }

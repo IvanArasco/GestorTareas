@@ -21,7 +21,8 @@ namespace GestorDeTareas.Domain.Entities
             LastExecution = lastExecution;
 
             NextExecution = ValidateNextExecutionDate(nextExecution)
-                ? nextExecution : throw new ArgumentException();
+                ? nextExecution 
+                : throw new ArgumentException("La próxima ejecución no puede ser posterior a la fecha de expiración o anterior a la última ejecución.");
         }
 
         public void ChangeFrequency(Frequency? freq)
@@ -35,6 +36,9 @@ namespace GestorDeTareas.Domain.Entities
 
         public void ChangeNextExecution(DateTime? nextExecution)
         {
+            if (!ValidateNextExecutionDate(nextExecution))
+                throw new ArgumentException("La próxima ejecución no puede ser posterior a la fecha de expiración o anterior a la última ejecución.");
+
             NextExecution = nextExecution;
         }
 
