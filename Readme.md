@@ -10,7 +10,8 @@ ESTRUCTURA DEL PROYECTO:
 * Clase User : Auth con Jwt, Login y Register (contraseña encriptada)
 * Conexión a BD utilizando Entity Framework.
 * Conexión al Front en Angular : https://github.com/IvanArasco/GestorTareasFrontend
-* Validación.
+* Validación (excepciones que controlaremos en el front para que no rompa la aplicación)
+* Test Unitarios (Clase Task y User)
 
 ESTRUCTURA DE LAS CLASES: (Resumen)
 
