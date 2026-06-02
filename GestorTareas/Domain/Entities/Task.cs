@@ -40,6 +40,8 @@ namespace GestorDeTareas.Domain.Entities
         }
         public void ChangeExpirationTime(DateTime newDate)
         {
+            if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
+                throw new InvalidOperationException("No se puede cambiar la fecha de expiración de tarea completada, cancelada o expirada.");
             ExpirationDate = newDate;
         }
         public void ChangeUserId(int newUserId)
