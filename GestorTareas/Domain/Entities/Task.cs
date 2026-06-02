@@ -21,8 +21,7 @@ namespace GestorDeTareas.Domain.Entities
             Title = string.IsNullOrWhiteSpace(title)
                 ? throw new ArgumentException("El título no puede estar vacío") : title;
 
-            ExpirationDate = expirationDate < DateTime.Today
-                ? throw new ArgumentException("La fecha límite no puede ser anterior a hoy") : expirationDate;
+            ExpirationDate = expirationDate;
 
             UserId = userId <= 0 ? throw new ArgumentException("El ID de usuario no puede ser 0 o negativo") : userId;
 
