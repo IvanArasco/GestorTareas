@@ -1,15 +1,17 @@
 DEFINICIÓN DEL PROYECTO:
 
 * Gestor de tareas en .NET (simulando una aplicación de gestión como Jira o Trello).
-* Réplica de estructura con delegación de funciones entre capas (Controller - Service - Repository).
+* Réplica de estructura con delegación de funciones entre capas (Controller - Service - Repository - BD).
 * Aplicación de los principios SOLID.
 
 ESTRUCTURA DEL PROYECTO:
 
-* Clase padre Task --> 4 clases hijas --> Bug, Improvement, NewFeature, RecurringTask.
-* Clase User --> Auth con Jwt, Login y Register.
+* Clase padre Task - 4 clases hijas : Bug, Improvement, NewFeature, RecurringTask.
+* Clase User : Auth con Jwt, Login y Register (contraseña encriptada)
 * Conexión a BD utilizando Entity Framework.
-* Angular en el Front. Principios de Usabilidad y Accesibilidad.
+* Conexión al Front en Angular : https://github.com/IvanArasco/GestorTareasFrontend
+* Validación (excepciones que controlaremos en el front para que no rompa la aplicación)
+* Test Unitarios (Clase Task y User)
 
 ESTRUCTURA DE LAS CLASES: (Resumen)
 
@@ -20,6 +22,7 @@ ESTRUCTURA DE LAS CLASES: (Resumen)
   * Prioridad: Enumerado (Low, Medium, High, Critical)
   * Estado: Enumerado (Pending, InProgress, Completed, Cancelled)
   * Fecha de creación y finalización: DateTime
+  * Usuario responsable de la tarea (ID y nombre)
   * Métodos para iniciar, completar, cancelar, comprobar expiración, establecer prioridad...
 * Bug:
 
