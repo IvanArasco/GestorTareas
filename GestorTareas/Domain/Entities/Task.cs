@@ -38,12 +38,7 @@ namespace GestorDeTareas.Domain.Entities
         {
             Description = newDesc;
         }
-        public void ChangeExpirationTime(DateTime newDate)
-        {
-            if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
-                throw new InvalidOperationException("No se puede cambiar la fecha de expiración de tarea completada, cancelada o expirada.");
-            ExpirationDate = newDate;
-        }
+       
         public void ChangeUserId(int newUserId)
         {
             UserId = newUserId < 0
@@ -66,8 +61,6 @@ namespace GestorDeTareas.Domain.Entities
                 throw new InvalidOperationException("No se puede cancelar una tarea ya completada o cancelada.");
             if (HasExpired())
                 throw new InvalidOperationException("No se puede cancelar una tarea expirada.");
-            if (TaskStatus == Status.Cancelled)
-                throw new InvalidOperationException("No se puede iniciar una tarea cancelada.");
 
             TaskStatus = Status.Cancelled;
             CancellationReason = reason;
@@ -92,9 +85,22 @@ namespace GestorDeTareas.Domain.Entities
 
         public void ChangePriority(Priority newPriority)
         {
+            if (TaskPriority == newPriority) return;
+
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed || HasExpired())
                 throw new InvalidOperationException("No se puede cambiar la prioridad de una tarea completada, cancelada o expirada.");
             TaskPriority = newPriority;
+        }
+
+        public void ChangeExpirationTime(DateTime newDate)
+        {
+            if (ExpirationDate.Date == newDate.Date) return;
+
+            if (HasExpired())
+                throw new InvalidOperationException("No se puede cambiar la fecha de expiración a una anterior al día de hoy.");
+            if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed)
+                throw new InvalidOperationException("No se puede cambiar la fecha de expiración de tarea completada o cancelada.");
+            ExpirationDate = newDate;
         }
         public abstract override string ToString();
     }

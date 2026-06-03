@@ -77,7 +77,6 @@ public class TasksController : ControllerBase
 
         try
         {
-            // Delegamos la validación de existencia y permisos al servicio en una sola transacción
             var response = _taskService.Update(id, taskDto, userId, isAdmin);
             return Ok(response);
         }
@@ -85,7 +84,7 @@ public class TasksController : ControllerBase
         {
             return NotFound();
         }
-        catch (UnauthorizedAccessException) // Nueva excepción para el control de permisos
+        catch (UnauthorizedAccessException)
         {
             return Forbid();
         }

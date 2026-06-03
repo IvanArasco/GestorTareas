@@ -39,8 +39,8 @@ namespace GestorDeTareas.Application.Services
 
             // Set common properties using methods
             task.ChangeTitle(taskDto.Title);
-            task.ChangeExpirationTime(taskDto.ExpirationDate);
             task.ChangePriority(taskDto.TaskPriority);
+            task.ChangeExpirationTime(taskDto.ExpirationDate);
             task.ChangeDescription(taskDto.Description);
 
             // Set uncommon / specific depending on taskType
