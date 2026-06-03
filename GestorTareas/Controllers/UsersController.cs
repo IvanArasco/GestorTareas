@@ -40,8 +40,20 @@ namespace GestorDeTareas.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] UserRequestDto userDto)
         {
-            var user = _userService.Create(userDto);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+            try
+            {
+                var user = _userService.Create(userDto);
+                return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // PUT /api/users/{id}

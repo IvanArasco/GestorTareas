@@ -20,7 +20,7 @@ namespace GestorDeTareas.Domain.Entities
             PasswordHash = passwordHash;
 
             Email = !VerifyEmail(email)
-                ? throw new InvalidOperationException("Email no válido.")
+                ? throw new ArgumentException("Email no válido.")
                 : email;
 
             Birthdate = !VerifyBirthdate(birthdate)
