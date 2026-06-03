@@ -96,8 +96,10 @@ namespace GestorDeTareas.Domain.Entities
         {
             if (ExpirationDate.Date == newDate.Date) return;
 
-            if (HasExpired())
+            if (newDate.Date < DateTime.Today)
                 throw new InvalidOperationException("No se puede cambiar la fecha de expiración a una anterior al día de hoy.");
+            if (HasExpired())
+                throw new InvalidOperationException("No se puede modificar la fecha de una tarea que ya ha expirado.");
             if (TaskStatus == Status.Cancelled || TaskStatus == Status.Completed)
                 throw new InvalidOperationException("No se puede cambiar la fecha de expiración de tarea completada o cancelada.");
             ExpirationDate = newDate;
